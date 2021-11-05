@@ -32,15 +32,15 @@ class MovieModel extends MovieEntity {
       required this.id,
       required this.genreIds,
       required this.popularity,
-      required this.mediaType}) : super(
-        id: id,
-        title: title,
-        backdropPath: backdropPath,
-        posterPath: posterPath,
-        releaseDate: releaseDate,
-        voteEverage: voteAverage,
-        overView: overview
-      );
+      required this.mediaType})
+      : super(
+            id: id,
+            title: title,
+            backdropPath: backdropPath,
+            posterPath: posterPath,
+            releaseDate: releaseDate,
+            voteEverage: voteAverage,
+            overView: overview);
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     return MovieModel(

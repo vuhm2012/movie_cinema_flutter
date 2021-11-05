@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class MovieEntity extends Equatable{
+class MovieEntity extends Equatable {
   final String posterPath;
   final int id;
   final String backdropPath;
@@ -19,12 +19,10 @@ class MovieEntity extends Equatable{
       required this.overView})
       : assert(id != null, 'Movie id must not be null');
 
-
   // Props is what will return?
   @override
   List<Object> get props => [id, title];
 
   @override
   bool get stringify => true;
-  
 }
