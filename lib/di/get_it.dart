@@ -10,6 +10,7 @@ import 'package:movie_cinema_flutter/domain/usecases/get_popular.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_trending.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/movie_tab/movie_tab_bloc.dart';
 
 final getItInstance = GetIt.I;
 
@@ -41,5 +42,11 @@ Future init() async {
     ),
   );
 
-  getItInstance.registerLazySingleton(() => MovieBackdropBloc());
+  getItInstance.registerFactory(() => MovieBackdropBloc());
+
+  getItInstance.registerFactory(() => MovieTabBloc(
+        getPopular: GetPopular(getItInstance()),
+        getComingSoon: GetComingSoon(getItInstance()),
+        getPlayingNow: GetPlayingNow(getItInstance()),
+      ));
 }

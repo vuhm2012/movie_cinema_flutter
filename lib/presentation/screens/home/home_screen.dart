@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_cinema_flutter/di/get_it.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/movie_tab/movie_tab_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/screens/home/movie_tab/movie_tab_widget.dart';
 
 import 'movie_carousel/movie_carousel_widget.dart';
 
@@ -16,12 +18,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late MovieCarouselBloc movieCarouselBloc;
   late MovieBackdropBloc movieBackdropBloc;
+  late MovieTabBloc movieTabBloc;
 
   @override
   void initState() {
     super.initState();
     movieCarouselBloc = getItInstance<MovieCarouselBloc>();
     movieBackdropBloc = movieCarouselBloc.movieBackdropBloc;
+    movieTabBloc = getItInstance<MovieTabBloc>();
     movieCarouselBloc.add(const CarouselLoadEvent());
   }
 
@@ -30,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
     movieCarouselBloc.close();
     movieBackdropBloc.close();
+    movieTabBloc.close();
   }
 
   @override
@@ -41,6 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BlocProvider(
           create: (context) => movieBackdropBloc,
+        ),
+        BlocProvider(
+          create: (context) => movieTabBloc,
         ),
       ],
       child: Scaffold(
@@ -62,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const FractionallySizedBox(
                     alignment: Alignment.bottomCenter,
                     heightFactor: 0.4,
-                    child: Placeholder(color: Colors.white),
+                    child: MovieTabWidget(),
                   ),
                 ],
               );
