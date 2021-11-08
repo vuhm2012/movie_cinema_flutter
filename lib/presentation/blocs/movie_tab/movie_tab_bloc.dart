@@ -16,11 +16,11 @@ class MovieTabBloc extends Bloc<MovieTabEvent, MovieTabState> {
   final GetComingSoon getComingSoon;
   final GetPlayingNow getPlayingNow;
 
-  MovieTabBloc(
-      {required this.getPopular,
-      required this.getComingSoon,
-      required this.getPlayingNow})
-      : super(MovieTabInitial());
+  MovieTabBloc({
+    required this.getPopular,
+    required this.getComingSoon,
+    required this.getPlayingNow,
+  }) : super(MovieTabInitial());
 
   @override
   Stream<MovieTabState> mapEventToState(MovieTabEvent event) async* {
