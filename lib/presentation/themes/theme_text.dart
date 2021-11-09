@@ -12,21 +12,35 @@ class ThemeText {
         fontSize: Sizes.dimen_20.sp,
         color: Colors.white,
       );
+  static TextStyle get _whiteHeadline5 => _poppinsTextTheme.headline5!.copyWith(
+        fontSize: Sizes.dimen_24.sp,
+        color: Colors.white,
+      );
 
-  static TextStyle get whiteSubTitle => _poppinsTextTheme.subtitle1!
-      .copyWith(fontSize: Sizes.dimen_16, color: Colors.white);
+  static TextStyle get whiteSubTitle => _poppinsTextTheme.subtitle1!.copyWith(
+        fontSize: Sizes.dimen_16.sp,
+        color: Colors.white,
+      );
+  static TextStyle get _whiteButton => _poppinsTextTheme.button!.copyWith(
+        fontSize: Sizes.dimen_14.sp,
+        color: Colors.white,
+      );
 
   static TextStyle get whiteBodyText => _poppinsTextTheme.subtitle1!.copyWith(
-      fontSize: Sizes.dimen_14,
-      color: Colors.white,
-      wordSpacing: 0.25,
-      letterSpacing: 0.25,
-      height: 1.5);
+        fontSize: Sizes.dimen_14.sp,
+        color: Colors.white,
+        wordSpacing: 0.25,
+        letterSpacing: 0.25,
+        height: 1.5,
+      );
 
   static getTextTheme() => TextTheme(
-      headline6: _whiteHeadline6,
-      subtitle1: whiteSubTitle,
-      subtitle2: whiteBodyText);
+        headline5: _whiteHeadline5,
+        headline6: _whiteHeadline6,
+        subtitle1: whiteSubTitle,
+        bodyText2: whiteBodyText,
+        button: _whiteButton,
+      );
 }
 
 extension TextThemeExtension on TextTheme {

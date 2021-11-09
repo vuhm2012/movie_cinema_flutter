@@ -9,6 +9,7 @@ import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.d
 import 'package:movie_cinema_flutter/presentation/screens/home/home_screen.dart';
 import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
+import 'package:movie_cinema_flutter/presentation/wiredash_app.dart';
 
 class MovieApp extends StatefulWidget {
   const MovieApp({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class MovieApp extends StatefulWidget {
 }
 
 class _MovieAppState extends State<MovieApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
   late LanguageBloc _languageBloc;
 
   @override
@@ -40,24 +42,28 @@ class _MovieAppState extends State<MovieApp> {
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           if (state is LanguageLoaded) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Movie App',
-              theme: ThemeData(
-                  unselectedWidgetColor: Colors.blue,
-                  primaryColor: AppColor.vulcan,
-                  scaffoldBackgroundColor: AppColor.vulcan,
-                  textTheme: ThemeText.getTextTheme(),
-                  appBarTheme: const AppBarTheme(elevation: 0)),
-              supportedLocales:
-                  Languages.languages.map((e) => Locale(e.code)).toList(),
-              locale: state.locale,
-              localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate
-              ],
-              home: HomeScreen(),
+            return WiredashApp(
+              navigatorKey: _navigatorKey,
+              child: MaterialApp(
+                navigatorKey: _navigatorKey,
+                debugShowCheckedModeBanner: false,
+                title: 'Movie App',
+                theme: ThemeData(
+                    unselectedWidgetColor: Colors.blue,
+                    primaryColor: AppColor.vulcan,
+                    scaffoldBackgroundColor: AppColor.vulcan,
+                    textTheme: ThemeText.getTextTheme(),
+                    appBarTheme: const AppBarTheme(elevation: 0)),
+                supportedLocales:
+                    Languages.languages.map((e) => Locale(e.code)).toList(),
+                locale: state.locale,
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate
+                ],
+                home: HomeScreen(),
+              ),
             );
           }
           return const SizedBox.shrink();
