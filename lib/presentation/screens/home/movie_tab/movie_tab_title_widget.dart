@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:movie_cinema_flutter/app_localizations.dart';
 import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
@@ -33,7 +34,7 @@ class TabTitleWidget extends StatelessWidget {
           ),
         ),
         child: Text(
-          title,
+          AppLocalizations.of(context)?.translate(title) ?? '',
           style: isSelected
               ? Theme.of(context).textTheme.royalBlueSubTitle
               : Theme.of(context).textTheme.subtitle1,

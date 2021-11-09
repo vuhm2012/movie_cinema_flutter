@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_cinema_flutter/app_localizations.dart';
+import 'package:movie_cinema_flutter/common/constants/languages.dart';
 import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
+import 'package:movie_cinema_flutter/common/constants/translation_constants.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
+import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/screens/drawer/navigation_expanded_list_tile.dart';
 import 'package:movie_cinema_flutter/presentation/screens/drawer/navigation_list_item.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/logo.dart';
@@ -36,20 +42,26 @@ class NavigationDrawer extends StatelessWidget {
               ),
             ),
             NavigationListItem(
-              title: 'Favorite Movie',
+              title: TranslationConstants.feedback.t(context),
               onPressed: () {},
             ),
             NavigationExpandedListTile(
-              title: 'Language',
-              children: ['English', 'Vietnamese'],
+              title: TranslationConstants.language.t(context),
+              children: Languages.languages.map((e) => e.value).toList(),
+              onPressed: (index) {
+                BlocProvider.of<LanguageBloc>(context).add(
+                  ToggleLanguageEvent(
+                    Languages.languages[index],
+                  ),
+                );
+              },
+            ),
+            NavigationListItem(
+              title: TranslationConstants.feedback.t(context),
               onPressed: () {},
             ),
             NavigationListItem(
-              title: 'Feedback',
-              onPressed: () {},
-            ),
-            NavigationListItem(
-              title: 'About',
+              title: TranslationConstants.about.t(context),
               onPressed: () {},
             ),
           ],

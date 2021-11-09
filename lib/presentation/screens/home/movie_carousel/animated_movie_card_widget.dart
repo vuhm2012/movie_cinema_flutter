@@ -39,7 +39,7 @@ class AnimatedMovieCardWidget extends StatelessWidget {
           return Align(
             alignment: Alignment.topCenter,
             child: Container(
-              height: Curves.easeIn.transform(index == 0 ? value : value * 0.5) * ScreenUtil.screenHeight * 0.35,
+              height: Curves.easeIn.transform(index == 0 ? value : value * 0.9) * ScreenUtil.screenHeight * 0.35,
               width: Sizes.dimen_230.w,
               child: child,
             ),
