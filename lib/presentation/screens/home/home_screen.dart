@@ -7,6 +7,7 @@ import 'package:movie_cinema_flutter/presentation/blocs/movie_tab/movie_tab_bloc
 import 'package:movie_cinema_flutter/presentation/screens/drawer/navigation_drawer.dart';
 import 'package:movie_cinema_flutter/presentation/screens/home/movie_tab/movie_tab_widget.dart';
 
+import '../../widgets/app_error_widget.dart';
 import 'movie_carousel/movie_carousel_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -75,6 +76,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: MovieTabWidget(),
                   ),
                 ],
+              );
+            } else if (state is MovieCarouselError) {
+              return AppErrorWidget(
+                onPressed: () => movieCarouselBloc.add(
+                  const CarouselLoadEvent(),
+                ),
+                appErrorType: state.appErrorType,
               );
             }
             return const SizedBox.shrink();

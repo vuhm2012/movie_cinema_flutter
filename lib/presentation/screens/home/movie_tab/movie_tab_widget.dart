@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
+import 'package:movie_cinema_flutter/common/constants/translation_constants.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
+import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_tab/movie_tab_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/screens/home/movie_tab/movie_list_view_builder.dart';
 import 'package:movie_cinema_flutter/presentation/screens/home/movie_tab/movie_tab_constants.dart';
 import 'package:movie_cinema_flutter/presentation/screens/home/movie_tab/movie_tab_title_widget.dart';
+import 'package:movie_cinema_flutter/presentation/widgets/app_error_widget.dart';
 
 class MovieTabWidget extends StatefulWidget {
   const MovieTabWidget({Key? key}) : super(key: key);
@@ -52,11 +55,31 @@ class _MovieTabWidgetState extends State<MovieTabWidget> {
                 ],
               ),
               if (state is MovieTabChanged)
+                state.movies?.isEmpty ?? true
+                    ? Expanded(
+                        child: Center(
+                          child: Text(
+                            TranslationConstants.noMovies.t(context),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        child: MovieListViewBuilder(
+                          movies: state.movies,
+                        ),
+                      ),
+              if (state is MovieTabLoadEroor)
                 Expanded(
-                  child: MovieListViewBuilder(
-                    movies: state.movies,
+                  child: AppErrorWidget(
+                    appErrorType: state.appErrorType,
+                    onPressed: () => movieTabBloc.add(
+                      MovieTabChangedEvent(
+                          currentTabIndex: state.currentTabIndex),
+                    ),
                   ),
-                ),
+                )
             ],
           ),
         );
