@@ -1,9 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
 import 'package:movie_cinema_flutter/common/screenutil/screenutil.dart';
+import 'package:movie_cinema_flutter/common/extensions/num_extensions.dart';
+import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
 import 'package:movie_cinema_flutter/data/core/api_constants.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_detail_entity.dart';
+
+import 'movie_detail_app_bar.dart';
 
 class BigPoster extends StatelessWidget {
   final MovieDetailEntity movie;
@@ -47,11 +52,17 @@ class BigPoster extends StatelessWidget {
               style: Theme.of(context).textTheme.greySubtitle1,
             ),
             trailing: Text(
-              movie.voteAverage.toString(),
+              movie.voteAverage.convertToPercentageString(),
               style: Theme.of(context).textTheme.violetHeadLine6,
             ),
           ),
         ),
+        Positioned(
+          left: Sizes.dimen_16.w,
+          right: Sizes.dimen_16.w,
+          top: ScreenUtil.statusBarHeight + Sizes.dimen_4.h,
+          child: MovieDetailAppBar(),
+        )
       ],
     );
   }

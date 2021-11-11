@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
+import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/di/get_it.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/screens/movie_detail/movie_detail_arguments.dart';
@@ -38,32 +40,41 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider<MovieDetailBloc>.value(
-        value: _movieDetailBloc,
-        child: BlocBuilder<MovieDetailBloc, MovieDetailState>(
-          builder: (context, state) {
-            if (state is MovieDetailLoaded) {
-              final movieDetail = state.movieDetailEntity;
-              print(movieDetail);
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  BigPoster(
-                    movie: movieDetail,
-                  )
-                ],
-              );
-            } else if (state is MovieDetailError) {
-              return Center(
-                child: Text(
-                  'error',
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-              );
-            }
-            return SizedBox.shrink();
-          },
+      body: SingleChildScrollView(
+        child: BlocProvider<MovieDetailBloc>.value(
+          value: _movieDetailBloc,
+          child: BlocBuilder<MovieDetailBloc, MovieDetailState>(
+            builder: (context, state) {
+              if (state is MovieDetailLoaded) {
+                final movieDetail = state.movieDetailEntity;
+                print(movieDetail);
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    BigPoster(
+                      movie: movieDetail,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w),
+                      child: Text(
+                        movieDetail.overview.toString(),
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                    ),
+                  ],
+                );
+              } else if (state is MovieDetailError) {
+                return Center(
+                  child: Text(
+                    'error',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                );
+              }
+              return SizedBox.shrink();
+            },
+          ),
         ),
       ),
     );
