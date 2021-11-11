@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:movie_cinema_flutter/data/core/api_client.dart';
 import 'package:movie_cinema_flutter/data/core/api_constants.dart';
+import 'package:movie_cinema_flutter/data/models/movie_detail.dart';
 import 'package:movie_cinema_flutter/data/models/movie_model.dart';
 import 'package:movie_cinema_flutter/data/models/movie_result_model.dart';
 
@@ -11,6 +12,7 @@ abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getPopular();
   Future<List<MovieModel>> getPlayingNow();
   Future<List<MovieModel>> getCommingSoon();
+  Future<MovieDetailModel> getMovieDetail(int id);
 }
 
 class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
@@ -20,7 +22,7 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
 
   @override
   Future<List<MovieModel>> getTrending() async {
-    final response = await _client.get('trending/movie/day');
+    final response = await _client.get('trending/movie/day', );
     final movies = MovieResultModel.fromJson(response).movies;
     print('Trending: $movies');
     return movies;
@@ -48,5 +50,13 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
     final movies = MovieResultModel.fromJson(response).movies;
     print('Now Playing: $movies');
     return movies;
+  }
+
+  @override
+  Future<MovieDetailModel> getMovieDetail(int id) async {
+    final response = await _client.get('movie/$id');
+    final movie = MovieDetailModel.fromJson(response);
+    print('Movie detail: $movie');
+    return movie;
   }
 }

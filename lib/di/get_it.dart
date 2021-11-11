@@ -5,12 +5,14 @@ import 'package:movie_cinema_flutter/data/data_sources/movie_remote_data_source.
 import 'package:movie_cinema_flutter/data/repositories/movie_repository_impl.dart';
 import 'package:movie_cinema_flutter/domain/repositories/movie_repository.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_coming_soon.dart';
+import 'package:movie_cinema_flutter/domain/usecases/get_movie_detail.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_playing_now.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_popular.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_trending.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_tab/movie_tab_bloc.dart';
 
 final getItInstance = GetIt.I;
@@ -33,6 +35,9 @@ Future init() async {
   getItInstance
       .registerLazySingleton<GetPopular>(() => GetPopular(getItInstance()));
 
+  getItInstance.registerLazySingleton<GetMovieDetail>(
+      () => GetMovieDetail(getItInstance()));
+
   getItInstance.registerLazySingleton<GetPlayingNow>(
       () => GetPlayingNow(getItInstance()));
 
@@ -50,6 +55,9 @@ Future init() async {
         getComingSoon: GetComingSoon(getItInstance()),
         getPlayingNow: GetPlayingNow(getItInstance()),
       ));
+
+  getItInstance
+      .registerFactory(() => MovieDetailBloc(getMovieDetail: getItInstance()));
 
   getItInstance.registerSingleton<LanguageBloc>(LanguageBloc());
 }
