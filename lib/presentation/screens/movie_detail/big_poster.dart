@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_cinema_flutter/common/screenutil/screenutil.dart';
+import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
 import 'package:movie_cinema_flutter/data/core/api_constants.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_detail_entity.dart';
 
@@ -14,9 +15,44 @@ class BigPoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: '${ApiConstants.baseImageUrl}${movie.posterPath}',
-      width: ScreenUtil.screenWidth,
+    return Stack(
+      children: [
+        Container(
+          foregroundDecoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Theme.of(context).primaryColor.withOpacity(0.3),
+                Theme.of(context).primaryColor,
+              ],
+            ),
+          ),
+          child: CachedNetworkImage(
+            imageUrl: '${ApiConstants.baseImageUrl}${movie.posterPath}',
+            width: ScreenUtil.screenWidth,
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: ListTile(
+            title: Text(
+              movie.title,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            subtitle: Text(
+              movie.releaseDate.toString(),
+              style: Theme.of(context).textTheme.greySubtitle1,
+            ),
+            trailing: Text(
+              movie.voteAverage.toString(),
+              style: Theme.of(context).textTheme.violetHeadLine6,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
