@@ -21,7 +21,7 @@ class MovieEntity extends Equatable {
 
   // Props is what will return?
   @override
-  List<Object> get props => [id, title];
+  List<Object> get props => [id, title, backdropPath, voteEverage];
 
   @override
   bool get stringify => true;

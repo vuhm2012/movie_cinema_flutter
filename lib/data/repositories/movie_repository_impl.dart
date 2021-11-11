@@ -5,8 +5,10 @@ import 'package:movie_cinema_flutter/data/data_sources/movie_remote_data_source.
 import 'package:movie_cinema_flutter/data/models/movie_detail.dart';
 import 'package:movie_cinema_flutter/data/models/movie_model.dart';
 import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
+import 'package:movie_cinema_flutter/domain/entities/cast_entity.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_detail_entity.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_entity.dart';
+import 'package:movie_cinema_flutter/domain/entities/video_entity.dart';
 import 'package:movie_cinema_flutter/domain/repositories/movie_repository.dart';
 
 class MovieRepositoryImpl extends MovieRepository {
@@ -67,6 +69,30 @@ class MovieRepositoryImpl extends MovieRepository {
     try {
       final movies = await remoteDataSource.getMovieDetail(id);
       return Right(movies);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<CastEntity>>> getCastCrew(int id) async {
+    try {
+      final castCrew = await remoteDataSource.getCastCrew(id);
+      return Right(castCrew);
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<VideoEntity>>> getVideos(int id) async {
+    try {
+      final videos = await remoteDataSource.getVideos(id);
+      return Right(videos);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
     } on Exception {
