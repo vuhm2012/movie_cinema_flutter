@@ -11,12 +11,14 @@ import 'package:movie_cinema_flutter/domain/usecases/get_playing_now.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_popular.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_trending.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_videos.dart';
+import 'package:movie_cinema_flutter/domain/usecases/search_moives.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_tab/movie_tab_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/videos/videos_bloc.dart';
 
 final getItInstance = GetIt.I;
@@ -46,8 +48,11 @@ Future init() async {
       () => GetPlayingNow(getItInstance()));
 
   getItInstance.registerLazySingleton<GetCast>(() => GetCast(getItInstance()));
+  
   getItInstance.registerLazySingleton<GetVideos>(() => GetVideos(getItInstance()));
 
+  getItInstance.registerLazySingleton<SearchMovies>(() => SearchMovies(getItInstance()));
+  
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
       getTrending: getItInstance(),
@@ -78,6 +83,12 @@ Future init() async {
   getItInstance.registerFactory(
     () => VideosBloc(
       getVideos: getItInstance(),
+    ),
+  );
+
+  getItInstance.registerFactory(
+    () => SearchMovieBloc(
+      searchMovies: getItInstance(),
     ),
   );
 
