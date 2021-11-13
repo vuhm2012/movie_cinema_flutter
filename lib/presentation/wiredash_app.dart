@@ -20,7 +20,7 @@ class WiredashApp extends StatelessWidget {
       projectId: 'moviecinemasample-s57wh1k',
       secret: 'Jits-XQTpdF3OpQOOhUQi22fnQA--T33',
       options: WiredashOptionsData(
-        showDebugFloatingEntryPoint: false,
+        
       ),
       theme: WiredashThemeData(
         brightness: Brightness.dark,

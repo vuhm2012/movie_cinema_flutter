@@ -41,7 +41,7 @@ class AppErrorWidget extends StatelessWidget {
               ),
               Button(
                 text: TranslationConstants.feedback,
-                onPressed: () => Wiredash.of(context).show(),
+                onPressed: () => Wiredash.of(context)?.show(),
               ),
             ],
           )

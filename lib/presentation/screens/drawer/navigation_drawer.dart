@@ -9,6 +9,7 @@ import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/screens/drawer/navigation_expanded_list_tile.dart';
 import 'package:movie_cinema_flutter/presentation/screens/drawer/navigation_list_item.dart';
+import 'package:movie_cinema_flutter/presentation/screens/favorite/favorite_screen.dart';
 import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/app_dialog.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/logo.dart';
@@ -45,8 +46,10 @@ class NavigationDrawer extends StatelessWidget {
               ),
             ),
             NavigationListItem(
-              title: TranslationConstants.feedback.t(context),
-              onPressed: () {},
+              title: TranslationConstants.favoriteMovies.t(context),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavoriteScreen()));
+              },
             ),
             NavigationExpandedListTile(
               title: TranslationConstants.language.t(context),
@@ -63,7 +66,7 @@ class NavigationDrawer extends StatelessWidget {
               title: TranslationConstants.feedback.t(context),
               onPressed: () {
                 Navigator.of(context).pop();
-                Wiredash.of(context).show();
+                Wiredash.of(context)?.show();
               },
             ),
             NavigationListItem(

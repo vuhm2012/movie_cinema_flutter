@@ -51,7 +51,7 @@ class SearchMovieCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    movie.overView,
+                    movie.overView ?? '',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.greyCaption,

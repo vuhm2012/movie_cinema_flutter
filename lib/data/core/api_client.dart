@@ -24,7 +24,7 @@ class ApiClient {
     }
   }
 
-  String getPath(String path, Map<dynamic, dynamic>? params) {
+  Uri getPath(String path, Map<dynamic, dynamic>? params) {
     var paramsString = '';
     if (params?.isNotEmpty ?? false) {
       params?.forEach((key, value) {
@@ -32,6 +32,6 @@ class ApiClient {
       });
     }
 
-    return '${ApiConstants.baseUrl}$path?api_key=${ApiConstants.apiKey}$paramsString';
+    return Uri.parse('${ApiConstants.baseUrl}$path?api_key=${ApiConstants.apiKey}$paramsString');
   }
 }

@@ -6,6 +6,7 @@ import 'package:movie_cinema_flutter/domain/entities/movie_detail_entity.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_params.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_movie_detail.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/cast/cast_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/favorite_movie/favorite_movie_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/videos/videos_bloc.dart';
 
 part 'movie_detail_event.dart';
@@ -15,11 +16,13 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final GetMovieDetail getMovieDetail;
   final CastBloc castBloc;
   final VideosBloc videosBloc;
+  final FavoriteMovieBloc favoriteMovieBloc;
 
   MovieDetailBloc({
     required this.getMovieDetail,
     required this.castBloc,
     required this.videosBloc,
+    required this.favoriteMovieBloc,
   }) : super(MovieDetailInitial());
 
   @override
@@ -38,9 +41,13 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       castBloc.add(
         LoadCastEvent(movieId: event.movieId),
       );
-      
+
       videosBloc.add(
         LoadVideosEvent(movieId: event.movieId),
+      );
+
+      favoriteMovieBloc.add(
+        IsFavoriteMovieEvent(event.movieId),
       );
     }
   }
