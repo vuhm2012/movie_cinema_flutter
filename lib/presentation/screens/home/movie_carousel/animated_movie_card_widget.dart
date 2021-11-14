@@ -47,7 +47,7 @@ class AnimatedMovieCardWidget extends StatelessWidget {
         }
       },
       child: MovieCardWidget(
-        movieiId: movieId,
+        movieId: movieId,
         posterPath: posterPath,
       ),
     );
