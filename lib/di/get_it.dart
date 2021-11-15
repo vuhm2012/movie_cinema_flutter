@@ -1,12 +1,16 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:movie_cinema_flutter/data/core/api_client.dart';
+import 'package:movie_cinema_flutter/data/data_sources/authentication_local_data_source.dart';
+import 'package:movie_cinema_flutter/data/data_sources/authentication_remote_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/language_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_remote_data_source.dart';
 import 'package:movie_cinema_flutter/data/repositories/app_repository_impl.dart';
+import 'package:movie_cinema_flutter/data/repositories/authentication_repository_impl.dart';
 import 'package:movie_cinema_flutter/data/repositories/movie_repository_impl.dart';
 import 'package:movie_cinema_flutter/domain/repositories/app_repository.dart';
+import 'package:movie_cinema_flutter/domain/repositories/authentication_repository.dart';
 import 'package:movie_cinema_flutter/domain/repositories/movie_repository.dart';
 import 'package:movie_cinema_flutter/domain/usecases/delete_favorite_movie.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_cast.dart';
@@ -19,12 +23,15 @@ import 'package:movie_cinema_flutter/domain/usecases/get_preferred_language.dart
 import 'package:movie_cinema_flutter/domain/usecases/get_trending.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_videos.dart';
 import 'package:movie_cinema_flutter/domain/usecases/is_favorite_movie.dart';
+import 'package:movie_cinema_flutter/domain/usecases/login_user.dart';
+import 'package:movie_cinema_flutter/domain/usecases/logout_user.dart';
 import 'package:movie_cinema_flutter/domain/usecases/save_favorite_movie.dart';
 import 'package:movie_cinema_flutter/domain/usecases/search_moives.dart';
 import 'package:movie_cinema_flutter/domain/usecases/update_language.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/favorite_movie/favorite_movie_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/login/login_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_detail/movie_detail_bloc.dart';
@@ -49,11 +56,20 @@ Future init() async {
   getItInstance.registerLazySingleton<LanguageLocalDataSource>(
       () => LanguageLocalDataSourceImpl());
 
+  getItInstance.registerLazySingleton<AuthenticationRemoteDataSource>(
+      () => AuthenticationRemoteDataSourceImpl(getItInstance()));
+
+  getItInstance.registerLazySingleton<AuthenticationLocalDataSource>(
+      () => AuthenticationLocalDataSourceImpl());
+
   getItInstance.registerLazySingleton<MovieRepository>(
       () => MovieRepositoryImpl(getItInstance(), getItInstance()));
 
   getItInstance.registerLazySingleton<AppRepository>(
       () => AppRepositoryImpl(getItInstance()));
+
+  getItInstance.registerLazySingleton<AuthenticationRepository>(
+      () => AuthenticationRepositoryImpl(getItInstance(), getItInstance()));
 
   getItInstance.registerLazySingleton<UpdateLanguage>(
       () => UpdateLanguage(getItInstance()));
@@ -93,6 +109,12 @@ Future init() async {
   getItInstance.registerLazySingleton<IsFavoriteMovie>(
       () => IsFavoriteMovie(getItInstance()));
 
+  getItInstance
+      .registerLazySingleton<LoginUser>(() => LoginUser(getItInstance()));
+
+  getItInstance
+      .registerLazySingleton<LogoutUser>(() => LogoutUser(getItInstance()));
+
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
       getTrending: getItInstance(),
@@ -130,6 +152,13 @@ Future init() async {
   getItInstance.registerFactory(
     () => SearchMovieBloc(
       searchMovies: getItInstance(),
+    ),
+  );
+
+  getItInstance.registerFactory(
+    () => LoginBloc(
+      loginUser: getItInstance(),
+      logoutUser: getItInstance(),
     ),
   );
 
