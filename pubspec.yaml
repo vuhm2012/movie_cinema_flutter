@@ -79,6 +79,7 @@ flutter:
     - assets/svgs/
     - assets/pngs/
     - assets/languages/
+    - assets/animations/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

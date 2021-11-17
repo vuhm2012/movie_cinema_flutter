@@ -31,6 +31,7 @@ import 'package:movie_cinema_flutter/domain/usecases/update_language.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/favorite_movie/favorite_movie_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/loading/loading_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/login/login_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
@@ -117,6 +118,7 @@ Future init() async {
 
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
+      loadingBloc: getItInstance(),
       getTrending: getItInstance(),
       movieBackdropBloc: getItInstance(),
     ),
@@ -131,6 +133,7 @@ Future init() async {
       ));
 
   getItInstance.registerFactory(() => MovieDetailBloc(
+        loadingBloc: getItInstance(),
         getMovieDetail: getItInstance(),
         castBloc: getItInstance(),
         videosBloc: getItInstance(),
@@ -151,6 +154,7 @@ Future init() async {
 
   getItInstance.registerFactory(
     () => SearchMovieBloc(
+      loadingBloc: getItInstance(),
       searchMovies: getItInstance(),
     ),
   );
@@ -175,4 +179,6 @@ Future init() async {
     getPreferredLanguage: getItInstance(),
     updateLanguage: getItInstance(),
   ));
+
+  getItInstance.registerSingleton<LoadingBloc>(LoadingBloc());
 }

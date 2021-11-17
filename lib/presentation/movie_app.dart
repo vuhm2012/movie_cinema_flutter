@@ -7,9 +7,11 @@ import 'package:movie_cinema_flutter/common/constants/route_constants.dart';
 import 'package:movie_cinema_flutter/common/screenutil/screenutil.dart';
 import 'package:movie_cinema_flutter/di/get_it.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/loading/loading_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/login/login_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/routes.dart';
 import 'package:movie_cinema_flutter/presentation/screens/home/home_screen.dart';
+import 'package:movie_cinema_flutter/presentation/screens/loading/loading_screen.dart';
 import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/fade_page_route_builder.dart';
@@ -26,6 +28,7 @@ class _MovieAppState extends State<MovieApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
   late LanguageBloc _languageBloc;
   late LoginBloc _loginBloc;
+  late LoadingBloc _loadingBloc;
 
   @override
   void initState() {
@@ -33,12 +36,14 @@ class _MovieAppState extends State<MovieApp> {
     _languageBloc = getItInstance<LanguageBloc>();
     _languageBloc.add(LoadPreferredLanguageEvent());
     _loginBloc = getItInstance<LoginBloc>();
+    _loadingBloc = getItInstance<LoadingBloc>();
   }
 
   @override
   void dispose() {
     _languageBloc.close();
     _loginBloc.close();
+    _loadingBloc.close();
     super.dispose();
   }
 
@@ -52,6 +57,9 @@ class _MovieAppState extends State<MovieApp> {
         ),
         BlocProvider<LoginBloc>.value(
           value: _loginBloc,
+        ),
+        BlocProvider<LoadingBloc>.value(
+          value: _loadingBloc,
         ),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
@@ -72,13 +80,13 @@ class _MovieAppState extends State<MovieApp> {
                 supportedLocales:
                     Languages.languages.map((e) => Locale(e.code)).toList(),
                 locale: state.locale,
-                localizationsDelegates: [
+                localizationsDelegates: const [
                   AppLocalizations.delegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate
                 ],
                 builder: (context, child) {
-                  return child ?? Container();
+                  return LoadingScreen(screen: child ?? Container(),);
                 },
                 initialRoute: RouteList.initail,
                 onGenerateRoute: (RouteSettings settings) {

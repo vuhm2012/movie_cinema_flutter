@@ -8,6 +8,7 @@ import 'package:movie_cinema_flutter/presentation/blocs/movie_tab/movie_tab_bloc
 import 'package:movie_cinema_flutter/presentation/screens/home/movie_tab/movie_list_view_builder.dart';
 import 'package:movie_cinema_flutter/presentation/screens/home/movie_tab/movie_tab_constants.dart';
 import 'package:movie_cinema_flutter/presentation/screens/home/movie_tab/movie_tab_title_widget.dart';
+import 'package:movie_cinema_flutter/presentation/screens/loading/loading_circle.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/app_error_widget.dart';
 
 class MovieTabWidget extends StatefulWidget {
@@ -78,6 +79,12 @@ class _MovieTabWidgetState extends State<MovieTabWidget> {
                       MovieTabChangedEvent(
                           currentTabIndex: state.currentTabIndex),
                     ),
+                  ),
+                ),
+              if (state is MovieTabLoading)
+                Expanded(
+                  child: Center(
+                    child: LoadingCircle(size: Sizes.dimen_100.w),
                   ),
                 )
             ],

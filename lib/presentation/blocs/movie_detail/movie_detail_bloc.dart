@@ -7,6 +7,7 @@ import 'package:movie_cinema_flutter/domain/entities/movie_params.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_movie_detail.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/favorite_movie/favorite_movie_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/loading/loading_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/videos/videos_bloc.dart';
 
 part 'movie_detail_event.dart';
@@ -17,8 +18,10 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final CastBloc castBloc;
   final VideosBloc videosBloc;
   final FavoriteMovieBloc favoriteMovieBloc;
+  final LoadingBloc loadingBloc;
 
   MovieDetailBloc({
+    required this.loadingBloc,
     required this.getMovieDetail,
     required this.castBloc,
     required this.videosBloc,
@@ -28,6 +31,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   @override
   Stream<MovieDetailState> mapEventToState(MovieDetailEvent event) async* {
     if (event is MovieDetailLoadEvent) {
+      loadingBloc.add(StartLoading());
       final Either<AppError, MovieDetailEntity> eitherResponse =
           await getMovieDetail(
         MovieParams(event.movieId),
@@ -49,6 +53,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       favoriteMovieBloc.add(
         IsFavoriteMovieEvent(event.movieId),
       );
+      loadingBloc.add(FinishLoading());
     }
   }
 }

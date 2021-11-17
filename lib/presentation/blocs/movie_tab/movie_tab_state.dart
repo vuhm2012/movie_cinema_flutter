@@ -29,3 +29,9 @@ class MovieTabLoadEroor extends MovieTabState {
     required this.appErrorType,
   }) : super(currentTabIndex: currentTabIndex);
 }
+
+class MovieTabLoading extends MovieTabState {
+  const MovieTabLoading({
+    int currentTabIndex = 0,
+  }) : super(currentTabIndex: currentTabIndex);
+}
