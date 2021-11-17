@@ -163,6 +163,7 @@ Future init() async {
     () => LoginBloc(
       loginUser: getItInstance(),
       logoutUser: getItInstance(),
+      loadingBloc: getItInstance()
     ),
   );
 

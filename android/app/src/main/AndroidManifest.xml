@@ -2,7 +2,7 @@
     package="com.vuhm.movie_cinema_flutter">
    <application
         android:label="movie_cinema_flutter"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/movie_logo_app">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

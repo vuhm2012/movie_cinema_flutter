@@ -30,7 +30,7 @@ class LabelFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: Sizes.dimen_24.h),
+      padding: EdgeInsets.symmetric(vertical: Sizes.dimen_12.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
