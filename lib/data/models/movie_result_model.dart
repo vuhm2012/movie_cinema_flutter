@@ -3,11 +3,15 @@ import 'movie_model.dart';
 class MovieResultModel {
   late int page;
   late List<MovieModel> movies;
-  late int totalPages ;
+  late int totalPages;
   late int totalResults;
 
-  MovieResultModel(
-      {required this.page, required this.movies, required this.totalPages, required this.totalResults});
+  MovieResultModel({
+    required this.page,
+    required this.movies,
+    required this.totalPages,
+    required this.totalResults,
+  });
 
   MovieResultModel.fromJson(Map<String, dynamic> json) {
     page = json['page'];

@@ -11,15 +11,15 @@ class MovieEntity extends Equatable {
   final String? releaseDate;
   final String? overView;
 
-  const MovieEntity(
-      {required this.posterPath,
-      required this.id,
-      required this.backdropPath,
-      required this.title,
-      required this.voteEverage,
-      required this.releaseDate,
-      required this.overView})
-      : assert(id != null, 'Movie id must not be null');
+  const MovieEntity({
+    required this.posterPath,
+    required this.id,
+    required this.backdropPath,
+    required this.title,
+    required this.voteEverage,
+    required this.releaseDate,
+    required this.overView,
+  });
 
   // Props is what will return?
   @override

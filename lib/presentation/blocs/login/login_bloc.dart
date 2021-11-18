@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:movie_cinema_flutter/common/constants/translation_constants.dart';
 import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
 import 'package:movie_cinema_flutter/domain/entities/login_request_params.dart';
@@ -37,7 +36,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield eitherResponse.fold(
         (l) {
           var message = getErrorMessage(l.appErrorType);
-          print(message);
           return LoginError(message);
         },
         (r) => LoginSuccess(),

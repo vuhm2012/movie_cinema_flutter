@@ -1,8 +1,4 @@
-import 'dart:convert';
-
-import 'package:http/http.dart';
 import 'package:movie_cinema_flutter/data/core/api_client.dart';
-import 'package:movie_cinema_flutter/data/core/api_constants.dart';
 import 'package:movie_cinema_flutter/data/models/cast_crew_result_data_model.dart';
 import 'package:movie_cinema_flutter/data/models/movie_detail.dart';
 import 'package:movie_cinema_flutter/data/models/movie_model.dart';
@@ -32,7 +28,6 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
       'trending/movie/day',
     );
     final movies = MovieResultModel.fromJson(response).movies;
-    print('Trending: $movies');
     return movies;
   }
 
@@ -40,7 +35,6 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   Future<List<MovieModel>> getPopular() async {
     final response = await _client.get('movie/popular');
     final movies = MovieResultModel.fromJson(response).movies;
-    print('Popular: $movies');
     return movies;
   }
 
@@ -48,7 +42,6 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   Future<List<MovieModel>> getCommingSoon() async {
     final response = await _client.get('movie/upcoming');
     final movies = MovieResultModel.fromJson(response).movies;
-    print('Comming Soon: $movies');
     return movies;
   }
 
@@ -56,7 +49,6 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   Future<List<MovieModel>> getPlayingNow() async {
     final response = await _client.get('movie/now_playing');
     final movies = MovieResultModel.fromJson(response).movies;
-    print('Now Playing: $movies');
     return movies;
   }
 
@@ -64,7 +56,6 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   Future<MovieDetailModel> getMovieDetail(int id) async {
     final response = await _client.get('movie/$id');
     final movie = MovieDetailModel.fromJson(response);
-    print('Movie detail: $movie');
     return movie;
   }
 
@@ -72,7 +63,6 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   Future<List<CastModel>> getCastCrew(int id) async {
     final response = await _client.get('movie/$id/credits');
     final castCrew = CastCrewResultModel.fromJson(response).cast;
-    print('Movie detail: $castCrew');
     return castCrew;
   }
 
@@ -80,7 +70,6 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   Future<List<VideoModel>> getVideos(int id) async {
     final response = await _client.get('movie/$id/videos');
     final videos = VideoResultModel.fromJson(response).videos;
-    print('Movie detail: $videos');
     return videos;
   }
 
@@ -93,7 +82,6 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
       },
     );
     final movies = MovieResultModel.fromJson(response).movies;
-    print('Search movie detail: $movies');
     return movies;
   }
 }

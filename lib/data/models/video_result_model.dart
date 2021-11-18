@@ -21,9 +21,9 @@ class VideoResultModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['results'] = this.videos.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['results'] = videos.map((v) => v.toJson()).toList();
     return data;
   }
 }

@@ -4,7 +4,6 @@ import 'package:movie_cinema_flutter/common/constants/translation_constants.dart
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
 import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
-import 'package:movie_cinema_flutter/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/button.dart';
 import 'package:wiredash/wiredash.dart';
 

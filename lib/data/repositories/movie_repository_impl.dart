@@ -9,10 +9,7 @@ import 'package:movie_cinema_flutter/data/models/movie_model.dart';
 import 'package:movie_cinema_flutter/data/models/video_model.dart';
 import 'package:movie_cinema_flutter/data/tables/movie_table.dart';
 import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
-import 'package:movie_cinema_flutter/domain/entities/cast_entity.dart';
-import 'package:movie_cinema_flutter/domain/entities/movie_detail_entity.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_entity.dart';
-import 'package:movie_cinema_flutter/domain/entities/video_entity.dart';
 import 'package:movie_cinema_flutter/domain/repositories/movie_repository.dart';
 
 class MovieRepositoryImpl extends MovieRepository {

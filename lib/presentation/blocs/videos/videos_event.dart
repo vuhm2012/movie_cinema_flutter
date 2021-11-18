@@ -10,7 +10,7 @@ abstract class VideosEvent extends Equatable {
 class LoadVideosEvent extends VideosEvent {
   final int movieId;
 
-  LoadVideosEvent({required this.movieId});
+  const LoadVideosEvent({required this.movieId});
 
   @override
   List<Object> get props => [movieId];

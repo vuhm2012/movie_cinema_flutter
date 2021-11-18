@@ -4,7 +4,6 @@ import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
 import 'package:movie_cinema_flutter/common/constants/translation_constants.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
-import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
 import 'package:movie_cinema_flutter/presentation/screens/search_movie/search_movie_card.dart';
 import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
@@ -16,11 +15,13 @@ class CustomSearchDelegate extends SearchDelegate {
 
   CustomSearchDelegate(this.searchMovieBloc);
 
+  @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
-        inputDecorationTheme: InputDecorationTheme(
-      hintStyle: Theme.of(context).textTheme.greySubtitle1,
-    ));
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: Theme.of(context).textTheme.greySubtitle1,
+      ),
+    );
   }
 
   @override
@@ -38,14 +39,14 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildLeading(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
+    return IconButton(
+      padding: EdgeInsets.only(left: Sizes.dimen_10.w),
+      onPressed: () {
         close(context, null);
       },
-      child: Icon(
+      icon: const Icon(
         Icons.arrow_back_ios,
         color: Colors.white,
-        size: Sizes.dimen_10.h,
       ),
     );
   }
@@ -95,6 +96,6 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 }

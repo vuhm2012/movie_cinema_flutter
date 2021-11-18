@@ -7,6 +7,7 @@ import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
 import 'package:movie_cinema_flutter/data/core/api_constants.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_detail_entity.dart';
+import 'package:movie_cinema_flutter/presentation/widgets/image_loading_placeholder.dart';
 
 import 'movie_detail_app_bar.dart';
 
@@ -36,6 +37,9 @@ class BigPoster extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl: '${ApiConstants.baseImageUrl}${movie.posterPath}',
             width: ScreenUtil.screenWidth,
+            placeholder: (context, url) => ImageLoadingPlaceHolder(
+              loadingSize: Sizes.dimen_64.w,
+            ),
           ),
         ),
         Positioned(

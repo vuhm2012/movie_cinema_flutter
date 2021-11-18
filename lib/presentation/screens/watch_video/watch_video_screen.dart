@@ -6,6 +6,7 @@ import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/domain/entities/video_entity.dart';
 import 'package:movie_cinema_flutter/presentation/screens/watch_video/watch_video_arguments.dart';
+import 'package:movie_cinema_flutter/presentation/widgets/image_loading_placeholder.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class WatchVideoScreen extends StatefulWidget {
@@ -30,7 +31,7 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
     _videos = widget.watchVideoArguments.videos;
     _controller = YoutubePlayerController(
       initialVideoId: _videos[0].key,
-      flags: YoutubePlayerFlags(
+      flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
       ),
@@ -57,7 +58,7 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
           aspectRatio: 16 / 9,
           showVideoProgressIndicator: true,
           progressIndicatorColor: Colors.amber,
-          progressColors: ProgressBarColors(
+          progressColors: const ProgressBarColors(
             playedColor: Colors.amber,
             handleColor: Colors.amberAccent,
           ),
@@ -88,6 +89,10 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
                                     videoId: _videos[i].key,
                                     quality: ThumbnailQuality.high,
                                   ),
+                                  placeholder: (context, url) =>
+                                      ImageLoadingPlaceHolder(
+                                    loadingSize: Sizes.dimen_64.w,
+                                  ),
                                 ),
                               ),
                               Expanded(
@@ -97,7 +102,8 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
                                   ),
                                   child: Text(
                                     _videos[i].title,
-                                    style: Theme.of(context).textTheme.subtitle1,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
                                   ),
                                 ),
                               ),

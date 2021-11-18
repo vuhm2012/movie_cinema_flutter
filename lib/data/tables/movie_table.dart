@@ -14,7 +14,7 @@ class MovieTable extends MovieEntity {
   @HiveField(2)
   final String posterPath;
 
-  MovieTable({
+  const MovieTable({
     required this.id,
     required this.title,
     required this.posterPath,

@@ -8,6 +8,7 @@ import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/common/screenutil/screenutil.dart';
 import 'package:movie_cinema_flutter/data/core/api_constants.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/widgets/image_loading_placeholder.dart';
 
 class MovieBackdropWidget extends StatelessWidget {
   const MovieBackdropWidget({Key? key}) : super(key: key);
@@ -33,6 +34,9 @@ class MovieBackdropWidget extends StatelessWidget {
                       imageUrl:
                           '${ApiConstants.baseImageUrl}${state.movie.backdropPath}',
                       fit: BoxFit.fitHeight,
+                      placeholder: (context, url) => ImageLoadingPlaceHolder(
+                        loadingSize: Sizes.dimen_64.w,
+                      ),
                     );
                   }
                   return const SizedBox.shrink();

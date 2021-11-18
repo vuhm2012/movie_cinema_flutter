@@ -8,7 +8,7 @@ import 'package:movie_cinema_flutter/data/core/api_constants.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_entity.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/favorite_movie/favorite_movie_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/screens/movie_detail/movie_detail_arguments.dart';
-import 'package:movie_cinema_flutter/presentation/screens/movie_detail/movie_detail_screen.dart';
+import 'package:movie_cinema_flutter/presentation/widgets/image_loading_placeholder.dart';
 
 class FavoriteMovieCardWidget extends StatelessWidget {
   final MovieEntity movie;
@@ -38,6 +38,9 @@ class FavoriteMovieCardWidget extends StatelessWidget {
                 imageUrl: '${ApiConstants.baseImageUrl}${movie.posterPath}',
                 fit: BoxFit.cover,
                 width: Sizes.dimen_100.h,
+                placeholder: (context, url) => ImageLoadingPlaceHolder(
+                  loadingSize: Sizes.dimen_64.w,
+                ),
               ),
               Align(
                 alignment: Alignment.topRight,

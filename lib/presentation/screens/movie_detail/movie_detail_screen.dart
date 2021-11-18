@@ -11,7 +11,6 @@ import 'package:movie_cinema_flutter/presentation/blocs/movie_detail/movie_detai
 import 'package:movie_cinema_flutter/presentation/blocs/videos/videos_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/screens/movie_detail/movie_detail_arguments.dart';
 import 'package:movie_cinema_flutter/presentation/screens/movie_detail/videos_widget.dart';
-
 import 'big_poster.dart';
 import 'cast_widget.dart';
 
@@ -65,10 +64,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         ],
         child: BlocBuilder<MovieDetailBloc, MovieDetailState>(
           builder: (context, state) {
-            print('statedetail: ${state.toString()}');
             if (state is MovieDetailLoaded) {
               final movieDetail = state.movieDetailEntity;
-              print(movieDetail);
               return SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -95,7 +92,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
-                    CastWidget(),
+                    const CastWidget(),
                     VideosWidget(videosBloc: _videosBloc),
                   ],
                 ),
@@ -108,7 +105,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 ),
               );
             }
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           },
         ),
       ),

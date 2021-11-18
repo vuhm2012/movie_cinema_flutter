@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_cinema_flutter/common/constants/route_constants.dart';
 import 'package:movie_cinema_flutter/common/constants/translation_constants.dart';
-import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/videos/videos_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/screens/watch_video/watch_video_arguments.dart';
-import 'package:movie_cinema_flutter/presentation/screens/watch_video/watch_video_screen.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/button.dart';
 
 class VideosWidget extends StatelessWidget {
@@ -32,7 +30,7 @@ class VideosWidget extends StatelessWidget {
             },
           );
         } else {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
       },
     );

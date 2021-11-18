@@ -13,7 +13,7 @@ class Button extends StatelessWidget {
     Key? key,
     required this.text,
     required this.onPressed,
-    this.isEnabled = false,
+    this.isEnabled = true,
   }) : super(key: key);
 
   @override

@@ -39,13 +39,17 @@ class MovieDetailAppBar extends StatelessWidget {
                     state.isFavoriteMovie,
                   ),
                 ),
-                child: Icon(
-                  state.isFavoriteMovie
-                      ? Icons.favorite
-                      : Icons.favorite_border,
-                  color: Colors.white,
-                  size: Sizes.dimen_12.h,
-                ),
+                child: state.isFavoriteMovie
+                    ? Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                        size: Sizes.dimen_12.h,
+                      )
+                    : Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                        size: Sizes.dimen_12.h,
+                      ),
               );
             } else {
               return Icon(

@@ -5,7 +5,6 @@ import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/common/screenutil/screenutil.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_entity.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
-import 'package:movie_cinema_flutter/presentation/screens/home/movie_carousel/movie_card_widget.dart';
 
 import 'animated_movie_card_widget.dart';
 
@@ -13,10 +12,11 @@ class MoviePageView extends StatefulWidget {
   final List<MovieEntity> movies;
   final int initialPage;
 
-  const MoviePageView(
-      {Key? key, required this.movies, required this.initialPage})
-      : assert(initialPage >= 0, 'initialPage cannot be less than 0'),
-        super(key: key);
+  const MoviePageView({
+    Key? key,
+    required this.movies,
+    required this.initialPage,
+  }) : super(key: key);
 
   @override
   _MoviePageWidgetState createState() => _MoviePageWidgetState();

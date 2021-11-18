@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_cinema_flutter/app_localizations.dart';
 import 'package:movie_cinema_flutter/common/constants/languages.dart';
 import 'package:movie_cinema_flutter/common/constants/route_constants.dart';
 import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
@@ -11,8 +10,6 @@ import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.d
 import 'package:movie_cinema_flutter/presentation/blocs/login/login_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/screens/drawer/navigation_expanded_list_tile.dart';
 import 'package:movie_cinema_flutter/presentation/screens/drawer/navigation_list_item.dart';
-import 'package:movie_cinema_flutter/presentation/screens/favorite/favorite_screen.dart';
-import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/app_dialog.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/logo.dart';
 import 'package:wiredash/wiredash.dart';

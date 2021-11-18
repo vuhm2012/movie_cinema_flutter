@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
-import 'package:movie_cinema_flutter/common/constants/translation_constants.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
-import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
 import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
-import 'package:movie_cinema_flutter/presentation/widgets/button.dart';
 
 class LabelFieldWidget extends StatelessWidget {
   final String label;

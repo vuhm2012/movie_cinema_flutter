@@ -5,7 +5,7 @@ import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/data/core/api_constants.dart';
 import 'package:movie_cinema_flutter/presentation/screens/movie_detail/movie_detail_arguments.dart';
-import 'package:movie_cinema_flutter/presentation/screens/movie_detail/movie_detail_screen.dart';
+import 'package:movie_cinema_flutter/presentation/widgets/image_loading_placeholder.dart';
 
 class MovieCardWidget extends StatelessWidget {
   final int movieId;
@@ -32,6 +32,9 @@ class MovieCardWidget extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl: '${ApiConstants.baseImageUrl}$posterPath',
             fit: BoxFit.cover,
+            placeholder: (context, url) => ImageLoadingPlaceHolder(
+              loadingSize: Sizes.dimen_64.w,
+            ),
           ),
         ),
       ),

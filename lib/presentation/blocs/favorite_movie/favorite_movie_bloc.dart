@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flare_flutter/base/animation/property_types.dart';
-import 'package:flutter/gestures.dart';
 import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_entity.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_params.dart';

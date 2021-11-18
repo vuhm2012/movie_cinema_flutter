@@ -9,7 +9,7 @@ class MovieDetailEntity extends Equatable {
   final String? backdropPath;
   final String posterPath;
 
-  MovieDetailEntity({
+  const MovieDetailEntity({
     required this.id,
     required this.title,
     required this.overview,
@@ -20,7 +20,6 @@ class MovieDetailEntity extends Equatable {
   });
 
   @override
-  // TODO: implement props
   List<Object> get props => [id];
 
   

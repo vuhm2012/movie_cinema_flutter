@@ -23,6 +23,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               const LoginForm(),
+              // url register https://www.themoviedb.org/signup
             ],
           ),
         ),

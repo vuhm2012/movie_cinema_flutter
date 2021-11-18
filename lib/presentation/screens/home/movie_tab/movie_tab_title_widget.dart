@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:movie_cinema_flutter/app_localizations.dart';
 import 'package:movie_cinema_flutter/common/constants/size_constants.dart';

@@ -10,8 +10,7 @@ abstract class MovieCarouselEvent extends Equatable {
 class CarouselLoadEvent extends MovieCarouselEvent {
   final int defaultIndex;
 
-  const CarouselLoadEvent({this.defaultIndex = 0})
-      : assert(defaultIndex >= 0, 'DefaultIndex cannot be less than 0');
+  const CarouselLoadEvent({this.defaultIndex = 0});
 
   @override
   List<Object> get props => [defaultIndex];

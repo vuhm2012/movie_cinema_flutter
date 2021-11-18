@@ -7,8 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:movie_cinema_flutter/main.dart';
 import 'package:movie_cinema_flutter/presentation/movie_app.dart';
 
 void main() {

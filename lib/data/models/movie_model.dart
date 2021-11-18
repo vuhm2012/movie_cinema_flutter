@@ -17,23 +17,23 @@ class MovieModel extends MovieEntity {
   final double popularity;
   final String mediaType;
 
-  const MovieModel(
-      {required this.originalLanguage,
-      required this.originalTitle,
-      required this.posterPath,
-      required this.title,
-      required this.video,
-      required this.voteAverage,
-      required this.overview,
-      required this.releaseDate,
-      required this.voteCount,
-      required this.adult,
-      required this.backdropPath,
-      required this.id,
-      required this.genreIds,
-      required this.popularity,
-      required this.mediaType})
-      : super(
+  const MovieModel({
+    required this.originalLanguage,
+    required this.originalTitle,
+    required this.posterPath,
+    required this.title,
+    required this.video,
+    required this.voteAverage,
+    required this.overview,
+    required this.releaseDate,
+    required this.voteCount,
+    required this.adult,
+    required this.backdropPath,
+    required this.id,
+    required this.genreIds,
+    required this.popularity,
+    required this.mediaType,
+  }) : super(
             id: id,
             title: title,
             backdropPath: backdropPath,
@@ -62,7 +62,7 @@ class MovieModel extends MovieEntity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['original_language'] = originalLanguage;
     data['original_title'] = originalTitle;
     data['poster_path'] = posterPath;

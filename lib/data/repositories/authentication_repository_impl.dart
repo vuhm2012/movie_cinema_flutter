@@ -43,9 +43,9 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
           .createSession(validationWithLoginToken.toJson());
       if (sessionId != null) {
         await _authenticationLocalDataSource.saveSessionId(sessionId);
-        return Right(true);
+        return const Right(true);
       }
-      return Left(AppError(AppErrorType.sessionDenied));
+      return const Left(AppError(AppErrorType.sessionDenied));
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
     } on UnauthorizedException {
@@ -62,7 +62,6 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       _authenticationRemoteDataSource.deleteSession(sessionId),
       _authenticationLocalDataSource.deleteSessionId(),
     ]);
-    print(await _authenticationLocalDataSource.getSessionId());
-    return Right(Unit);
+    return const Right(Unit);
   }
 }

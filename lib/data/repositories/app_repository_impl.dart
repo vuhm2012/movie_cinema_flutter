@@ -1,5 +1,4 @@
 import 'package:movie_cinema_flutter/data/data_sources/language_local_data_source.dart';
-import 'package:movie_cinema_flutter/data/data_sources/movie_local_data_source.dart';
 import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
 import 'package:dartz/dartz.dart';
 import 'package:movie_cinema_flutter/domain/repositories/app_repository.dart';
