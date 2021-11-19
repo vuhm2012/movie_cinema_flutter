@@ -43,6 +43,10 @@ class SearchMovieCard extends StatelessWidget {
                 placeholder: (context, url) => ImageLoadingPlaceHolder(
                   loadingSize: Sizes.dimen_64.w,
                 ),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                ),
               ),
             ),
             Expanded(

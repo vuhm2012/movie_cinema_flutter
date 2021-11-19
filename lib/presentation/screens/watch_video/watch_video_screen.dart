@@ -93,6 +93,11 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
                                       ImageLoadingPlaceHolder(
                                     loadingSize: Sizes.dimen_64.w,
                                   ),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ),
                               Expanded(

@@ -50,8 +50,13 @@ class CastWidget extends StatelessWidget {
                             imageUrl:
                                 '${ApiConstants.baseImageUrl}${castEntity.posterPath}',
                             fit: BoxFit.fill,
-                            placeholder: (context, url) => ImageLoadingPlaceHolder(
+                            placeholder: (context, url) =>
+                                ImageLoadingPlaceHolder(
                               loadingSize: Sizes.dimen_64.w,
+                            ),
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.error,
+                              color: Colors.red,
                             ),
                           ),
                         ),
