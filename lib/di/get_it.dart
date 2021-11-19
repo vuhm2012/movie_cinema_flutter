@@ -130,6 +130,7 @@ Future init() async {
         getPopular: GetPopular(getItInstance()),
         getComingSoon: GetComingSoon(getItInstance()),
         getPlayingNow: GetPlayingNow(getItInstance()),
+        loadingBloc: getItInstance(),
       ));
 
   getItInstance.registerFactory(() => MovieDetailBloc(

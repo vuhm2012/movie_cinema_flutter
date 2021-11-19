@@ -23,7 +23,7 @@ class NavigationDrawer extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).primaryColor.withOpacity(0.7),
+            color: Theme.of(context).primaryColor,
             blurRadius: 4,
           )
         ],

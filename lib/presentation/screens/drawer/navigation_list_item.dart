@@ -19,15 +19,18 @@ class NavigationListItem extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).primaryColor.withOpacity(0.7),
+              color: Theme.of(context).primaryColor,
               blurRadius: 2,
             )
           ],
         ),
-        child: ListTile(
-          title: Text(
-            title,
-            style: Theme.of(context).textTheme.subtitle1,
+        child: Padding(
+          padding: EdgeInsets.only(left: Sizes.dimen_16.w),
+          child: ListTile(
+            title: Text(
+              title,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
           ),
         ),
       ),
@@ -52,16 +55,19 @@ class NavigationSubListItem extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).primaryColor.withOpacity(0.7),
+              color: Theme.of(context).primaryColor,
               blurRadius: 2,
             )
           ],
         ),
-        child: ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: Sizes.dimen_32.w),
-          title: Text(
-            title,
-            style: Theme.of(context).textTheme.subtitle1,
+        child: Padding(
+          padding: EdgeInsets.only(left: Sizes.dimen_16.w),
+          child: ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: Sizes.dimen_32.w),
+            title: Text(
+              title,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
           ),
         ),
       ),

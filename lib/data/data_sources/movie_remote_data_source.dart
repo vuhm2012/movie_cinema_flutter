@@ -7,10 +7,10 @@ import 'package:movie_cinema_flutter/data/models/video_model.dart';
 import 'package:movie_cinema_flutter/data/models/video_result_model.dart';
 
 abstract class MovieRemoteDataSource {
-  Future<List<MovieModel>> getTrending();
-  Future<List<MovieModel>> getPopular();
-  Future<List<MovieModel>> getPlayingNow();
-  Future<List<MovieModel>> getCommingSoon();
+  Future<List<MovieModel>> getTrending(int page);
+  Future<List<MovieModel>> getPopular(int page);
+  Future<List<MovieModel>> getPlayingNow(int page);
+  Future<List<MovieModel>> getCommingSoon(int page);
   Future<MovieDetailModel> getMovieDetail(int id);
   Future<List<CastModel>> getCastCrew(int id);
   Future<List<VideoModel>> getVideos(int id);
@@ -23,31 +23,41 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   MovieRemoteDataSourceImpl(this._client);
 
   @override
-  Future<List<MovieModel>> getTrending() async {
+  Future<List<MovieModel>> getTrending(int page) async {
     final response = await _client.get(
       'trending/movie/day',
+      params: {'page': page},
     );
     final movies = MovieResultModel.fromJson(response).movies;
     return movies;
   }
 
   @override
-  Future<List<MovieModel>> getPopular() async {
-    final response = await _client.get('movie/popular');
+  Future<List<MovieModel>> getPopular(int page) async {
+    final response = await _client.get(
+      'movie/popular',
+      params: {'page': page},
+    );
     final movies = MovieResultModel.fromJson(response).movies;
     return movies;
   }
 
   @override
-  Future<List<MovieModel>> getCommingSoon() async {
-    final response = await _client.get('movie/upcoming');
+  Future<List<MovieModel>> getCommingSoon(int page) async {
+    final response = await _client.get(
+      'movie/upcoming',
+      params: {'page': page},
+    );
     final movies = MovieResultModel.fromJson(response).movies;
     return movies;
   }
 
   @override
-  Future<List<MovieModel>> getPlayingNow() async {
-    final response = await _client.get('movie/now_playing');
+  Future<List<MovieModel>> getPlayingNow(int page) async {
+    final response = await _client.get(
+      'movie/now_playing',
+      params: {'page': page},
+    );
     final movies = MovieResultModel.fromJson(response).movies;
     return movies;
   }

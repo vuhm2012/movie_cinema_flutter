@@ -69,6 +69,7 @@ class _MovieTabWidgetState extends State<MovieTabWidget> {
                     : Expanded(
                         child: MovieListViewBuilder(
                           movies: state.movies,
+                          loadMore: loadMore,
                         ),
                       ),
               if (state is MovieTabLoadEroor)
@@ -95,6 +96,12 @@ class _MovieTabWidgetState extends State<MovieTabWidget> {
   }
 
   void _onTabTapped(int index) {
-    movieTabBloc.add(MovieTabChangedEvent(currentTabIndex: index));
+    movieTabBloc.add(MovieTabChangedEvent(
+        currentTabIndex: index, isChangeCurrentPage: true));
+    currentTabIndex = index;
+  }
+
+  void loadMore() {
+    movieTabBloc.add(MovieTabChangedEvent(currentTabIndex: currentTabIndex));
   }
 }

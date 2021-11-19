@@ -19,6 +19,13 @@ class SearchMovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String overview = '';
+    if (movie.overView == '') {
+      overview = "This movie doesn'n have over view";
+    } else {
+      overview = movie.overView.toString();
+    }
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(
@@ -43,9 +50,8 @@ class SearchMovieCard extends StatelessWidget {
                 placeholder: (context, url) => ImageLoadingPlaceHolder(
                   loadingSize: Sizes.dimen_64.w,
                 ),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                  color: Colors.red,
+                errorWidget: (context, url, error) => Image.asset(
+                  'assets/pngs/error_image.png',
                 ),
               ),
             ),
@@ -56,7 +62,7 @@ class SearchMovieCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    movie.overView ?? '',
+                    overview,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.greyCaption,

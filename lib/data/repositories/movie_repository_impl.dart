@@ -19,9 +19,9 @@ class MovieRepositoryImpl extends MovieRepository {
   MovieRepositoryImpl(this.remoteDataSource, this.localDataSource);
 
   @override
-  Future<Either<AppError, List<MovieModel>>> getTrending() async {
+  Future<Either<AppError, List<MovieModel>>> getTrending(int page) async {
     try {
-      final movies = await remoteDataSource.getTrending();
+      final movies = await remoteDataSource.getTrending(page);
       return Right(movies);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -31,9 +31,9 @@ class MovieRepositoryImpl extends MovieRepository {
   }
 
   @override
-  Future<Either<AppError, List<MovieModel>>> getComingSoon() async {
+  Future<Either<AppError, List<MovieModel>>> getComingSoon(int page) async {
     try {
-      final movies = await remoteDataSource.getCommingSoon();
+      final movies = await remoteDataSource.getCommingSoon(page);
       return Right(movies);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -43,9 +43,9 @@ class MovieRepositoryImpl extends MovieRepository {
   }
 
   @override
-  Future<Either<AppError, List<MovieModel>>> getPlayingNow() async {
+  Future<Either<AppError, List<MovieModel>>> getPlayingNow(int page) async {
     try {
-      final movies = await remoteDataSource.getPlayingNow();
+      final movies = await remoteDataSource.getPlayingNow(page);
       return Right(movies);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));
@@ -55,9 +55,9 @@ class MovieRepositoryImpl extends MovieRepository {
   }
 
   @override
-  Future<Either<AppError, List<MovieModel>>> getPopular() async {
+  Future<Either<AppError, List<MovieModel>>> getPopular(int page) async {
     try {
-      final movies = await remoteDataSource.getPopular();
+      final movies = await remoteDataSource.getPopular(page);
       return Right(movies);
     } on SocketException {
       return const Left(AppError(AppErrorType.network));

@@ -9,9 +9,13 @@ abstract class MovieTabEvent extends Equatable {
 
 class MovieTabChangedEvent extends MovieTabEvent {
   final int currentTabIndex;
+  final bool isChangeCurrentPage;
 
-  const MovieTabChangedEvent({this.currentTabIndex = 0});
+  const MovieTabChangedEvent({
+    this.currentTabIndex = 0,
+    this.isChangeCurrentPage = false,
+  });
 
   @override
-  List<Object> get props => [currentTabIndex];  
+  List<Object> get props => [currentTabIndex];
 }
