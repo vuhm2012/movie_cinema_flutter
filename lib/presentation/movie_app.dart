@@ -71,7 +71,10 @@ class _MovieAppState extends State<MovieApp> {
                 debugShowCheckedModeBanner: false,
                 title: 'Movie App',
                 theme: ThemeData(
-                    unselectedWidgetColor: Colors.blue,
+                    unselectedWidgetColor: Colors.white,
+                    colorScheme: const ColorScheme.light(
+                      primary: Colors.white
+                    ),
                     primaryColor: AppColor.vulcan,
                     scaffoldBackgroundColor: AppColor.vulcan,
                     textTheme: ThemeText.getTextTheme(),

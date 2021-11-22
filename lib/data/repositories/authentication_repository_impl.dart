@@ -43,6 +43,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
           .createSession(validationWithLoginToken.toJson());
       if (sessionId != null) {
         await _authenticationLocalDataSource.saveSessionId(sessionId);
+        print(sessionId);
         return const Right(true);
       }
       return const Left(AppError(AppErrorType.sessionDenied));

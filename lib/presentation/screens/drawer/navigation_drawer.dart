@@ -46,6 +46,7 @@ class NavigationDrawer extends StatelessWidget {
             ),
             NavigationListItem(
               title: TranslationConstants.favoriteMovies.t(context),
+              icon: Icons.favorite,
               onPressed: () {
                 Navigator.of(context).pushNamed(
                   RouteList.favorite,
@@ -65,6 +66,7 @@ class NavigationDrawer extends StatelessWidget {
             ),
             NavigationListItem(
               title: TranslationConstants.feedback.t(context),
+              icon: Icons.feedback,
               onPressed: () {
                 Navigator.of(context).pop();
                 Wiredash.of(context)?.show();
@@ -72,6 +74,7 @@ class NavigationDrawer extends StatelessWidget {
             ),
             NavigationListItem(
               title: TranslationConstants.about.t(context),
+              icon: Icons.info,
               onPressed: () {
                 Navigator.of(context).pop();
                 _showDialog(context);
@@ -85,6 +88,7 @@ class NavigationDrawer extends StatelessWidget {
               },
               child: NavigationListItem(
                 title: TranslationConstants.logout.t(context),
+                icon: Icons.logout,
                 onPressed: () {
                   BlocProvider.of<LoginBloc>(context).add(LogoutEvent());
                 },

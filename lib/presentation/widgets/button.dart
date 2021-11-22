@@ -18,21 +18,19 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: isEnabled
-              ? [AppColor.royalBlue, AppColor.violet]
-              : [Colors.grey, Colors.grey],
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(Sizes.dimen_20.w),
-        ),
+    return ElevatedButton(
+      onPressed: isEnabled ? onPressed : null,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(AppColor.royalBlue),
+        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Sizes.dimen_20.w),
+        )),
       ),
-      padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w),
-      margin: EdgeInsets.symmetric(vertical: Sizes.dimen_10.h),
-      child: TextButton(
-        onPressed: isEnabled ? onPressed : null,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: Sizes.dimen_32.w,
+          vertical: Sizes.dimen_4.h,
+        ),
         child: Text(
           text.t(context),
           style: Theme.of(context).textTheme.button,

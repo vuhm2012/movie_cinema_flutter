@@ -29,6 +29,10 @@ class NavigationExpandedListTile extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(left: Sizes.dimen_16.w),
         child: ExpansionTile(
+          leading: const Icon(
+            Icons.language,
+            color: Colors.white,
+          ),
           title: Text(
             title,
             style: Theme.of(context).textTheme.subtitle1,

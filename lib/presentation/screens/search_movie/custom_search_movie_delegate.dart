@@ -15,11 +15,21 @@ class CustomSearchDelegate extends SearchDelegate {
 
   CustomSearchDelegate(this.searchMovieBloc);
 
+  final OutlineInputBorder _enabledBorder = const OutlineInputBorder(
+    borderSide: BorderSide(color: AppColor.vulcan),
+  );
+
+  final OutlineInputBorder _focusedBorder = const OutlineInputBorder(
+    borderSide: BorderSide(color: AppColor.vulcan),
+  );
+
   @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: Theme.of(context).textTheme.greySubtitle1,
+        focusedBorder: _focusedBorder,
+        enabledBorder: _enabledBorder,
       ),
     );
   }

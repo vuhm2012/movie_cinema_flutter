@@ -45,8 +45,8 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    _userNameController?.clear();
-    _passwordController?.clear();
+    _userNameController?.dispose();
+    _passwordController?.dispose();
     super.dispose();
   }
 
@@ -100,6 +100,7 @@ class _LoginFormState extends State<LoginForm> {
                 );
               },
             ),
+            SizedBox(height: Sizes.dimen_6.h,),
             Button(
               text: TranslationConstants.signIn,
               onPressed: () {
