@@ -22,6 +22,7 @@ import 'package:movie_cinema_flutter/domain/usecases/get_popular.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_preferred_language.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_trending.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_videos.dart';
+import 'package:movie_cinema_flutter/domain/usecases/guest_login_use_case.dart';
 import 'package:movie_cinema_flutter/domain/usecases/is_favorite_movie.dart';
 import 'package:movie_cinema_flutter/domain/usecases/login_user.dart';
 import 'package:movie_cinema_flutter/domain/usecases/logout_user.dart';
@@ -116,6 +117,9 @@ Future init() async {
   getItInstance
       .registerLazySingleton<LogoutUser>(() => LogoutUser(getItInstance()));
 
+  getItInstance
+      .registerLazySingleton<GuestLoginUseCase>(() => GuestLoginUseCase(getItInstance()));
+
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
       loadingBloc: getItInstance(),
@@ -164,7 +168,8 @@ Future init() async {
     () => LoginBloc(
       loginUser: getItInstance(),
       logoutUser: getItInstance(),
-      loadingBloc: getItInstance()
+      loadingBloc: getItInstance(),
+      guestLoginUseCase: getItInstance(),
     ),
   );
 

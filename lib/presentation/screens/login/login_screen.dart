@@ -23,6 +23,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               const LoginForm(),
+              SizedBox(height: MediaQuery.of(context).viewInsets.bottom)
               // url register https://www.themoviedb.org/signup
             ],
           ),

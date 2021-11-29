@@ -56,13 +56,13 @@ class _LoginFormState extends State<LoginForm> {
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: Sizes.dimen_32.w,
-          vertical: Sizes.dimen_24.h,
+          vertical: Sizes.dimen_10.h,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: Sizes.dimen_8.h),
+              padding: EdgeInsets.only(bottom: Sizes.dimen_6.h),
               child: Text(
                 TranslationConstants.loginToMovieApp.t(context),
                 textAlign: TextAlign.center,
@@ -100,7 +100,9 @@ class _LoginFormState extends State<LoginForm> {
                 );
               },
             ),
-            SizedBox(height: Sizes.dimen_6.h,),
+            SizedBox(
+              height: Sizes.dimen_6.h,
+            ),
             Button(
               text: TranslationConstants.signIn,
               onPressed: () {
@@ -112,6 +114,18 @@ class _LoginFormState extends State<LoginForm> {
                 );
               },
               isEnabled: enableSignIn,
+            ),
+            SizedBox(
+              height: Sizes.dimen_6.h,
+            ),
+            Button(
+              text: TranslationConstants.guestSignIn,
+              onPressed: () {
+                BlocProvider.of<LoginBloc>(context).add(
+                  GuestLoginEvent(),
+                );
+              },
+              isEnabled: true,
             ),
           ],
         ),

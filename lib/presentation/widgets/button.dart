@@ -21,7 +21,7 @@ class Button extends StatelessWidget {
     return ElevatedButton(
       onPressed: isEnabled ? onPressed : null,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(AppColor.royalBlue),
+        backgroundColor: isEnabled ? MaterialStateProperty.all(AppColor.royalBlue) : MaterialStateProperty.all(Colors.grey),
         shape: MaterialStateProperty.all(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Sizes.dimen_20.w),
         )),

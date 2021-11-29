@@ -35,7 +35,7 @@ class _LabelFieldWidgetState extends State<LabelFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: Sizes.dimen_12.h),
+      padding: EdgeInsets.symmetric(vertical: Sizes.dimen_4.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -65,4 +65,23 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
     ]);
     return const Right(Unit);
   }
+
+  @override
+  Future<Either<AppError, bool>> guestLogin() async {
+    try {
+      final guestSessionId =
+        await _authenticationRemoteDataSource.getGuestSessionId();
+      if (guestSessionId != null) {
+        await _authenticationLocalDataSource.saveSessionId(guestSessionId.guestSessionId.toString());
+        return const Right(true);
+      }
+      return const Left(AppError(AppErrorType.sessionDenied));
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on UnauthorizedException {
+      return const Left(AppError(AppErrorType.unauthorized));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
+    }
+  }
 }

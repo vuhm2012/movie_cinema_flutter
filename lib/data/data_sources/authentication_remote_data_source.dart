@@ -1,4 +1,5 @@
 import 'package:movie_cinema_flutter/data/core/api_client.dart';
+import 'package:movie_cinema_flutter/data/models/guest_session_model.dart';
 import 'package:movie_cinema_flutter/data/models/request_token_model.dart';
 
 abstract class AuthenticationRemoteDataSource {
@@ -6,6 +7,7 @@ abstract class AuthenticationRemoteDataSource {
   Future<RequestTokenModel> validateWithLogin(Map<String, dynamic> requestBody);
   Future<String> createSession(Map<String, dynamic> requestBody);
   Future<bool> deleteSession(String sessionId);
+  Future<GuestSessionModel> getGuestSessionId();
 }
 
 class AuthenticationRemoteDataSourceImpl
@@ -49,5 +51,11 @@ class AuthenticationRemoteDataSourceImpl
       },
     );
     return response['success'] ?? false;
+  }
+
+  @override
+  Future<GuestSessionModel> getGuestSessionId() async {
+    final response = await _client.get('/authentication/guest_session/new');
+    return GuestSessionModel.fromJson(response);
   }
 }

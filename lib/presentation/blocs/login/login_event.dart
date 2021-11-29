@@ -16,6 +16,11 @@ class LoginInitiateEvent extends LoginEvent {
   List<Object> get props => [username, password];
 }
 
+
+class GuestLoginEvent extends LoginEvent {
+  
+}
+
 class LogoutEvent extends LoginEvent {
   
 }

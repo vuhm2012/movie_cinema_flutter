@@ -5,6 +5,7 @@ import 'package:movie_cinema_flutter/common/constants/translation_constants.dart
 import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
 import 'package:movie_cinema_flutter/domain/entities/login_request_params.dart';
 import 'package:movie_cinema_flutter/domain/entities/no_params.dart';
+import 'package:movie_cinema_flutter/domain/usecases/guest_login_use_case.dart';
 import 'package:movie_cinema_flutter/domain/usecases/login_user.dart';
 import 'package:movie_cinema_flutter/domain/usecases/logout_user.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/loading/loading_bloc.dart';
@@ -15,11 +16,13 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUser loginUser;
   final LogoutUser logoutUser;
+  final GuestLoginUseCase guestLoginUseCase;
   final LoadingBloc loadingBloc;
 
   LoginBloc({
     required this.loginUser,
     required this.logoutUser,
+    required this.guestLoginUseCase,
     required this.loadingBloc,
   }) : super(LoginInitial());
 
@@ -41,6 +44,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         (r) => LoginSuccess(),
       );
       loadingBloc.add(FinishLoading());
+    } else if (event is GuestLoginEvent) {
+      final Either<AppError, bool> eitherResponse =
+          await guestLoginUseCase(NoParams());
+      yield eitherResponse.fold(
+        (l) {
+          var message = getErrorMessage(l.appErrorType);
+          return LoginError(message);
+        },
+        (r) => LoginSuccess(),
+      );
     } else if (event is LogoutEvent) {
       await logoutUser(NoParams());
       yield LogoutSuccess();
