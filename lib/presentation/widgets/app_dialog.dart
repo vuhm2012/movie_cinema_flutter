@@ -60,9 +60,14 @@ class AppDialog extends StatelessWidget {
             ),
             // ignore: unnecessary_null_comparison
             if (image != null) image,
-            Button(
-              text: TranslationConstants.okay,
-              onPressed: () {},
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: Sizes.dimen_6.h),
+              child: Button(
+                text: TranslationConstants.okay,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
             ),
           ],
         ),
