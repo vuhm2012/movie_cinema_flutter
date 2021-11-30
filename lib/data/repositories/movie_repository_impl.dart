@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:movie_cinema_flutter/data/data_sources/authentication_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_remote_data_source.dart';
 import 'package:movie_cinema_flutter/data/models/cast_crew_result_data_model.dart';
+import 'package:movie_cinema_flutter/data/models/favorite_model.dart';
 import 'package:movie_cinema_flutter/data/models/movie_detail.dart';
 import 'package:movie_cinema_flutter/data/models/movie_model.dart';
 import 'package:movie_cinema_flutter/data/models/video_model.dart';
@@ -124,8 +126,21 @@ class MovieRepositoryImpl extends MovieRepository {
   @override
   Future<Either<AppError, void>> deleteFavoriteMovie(int movieId) async {
     try {
-      final response = await localDataSource.deleteMovie(movieId);
-      return Right(response);
+      final role = await localDataSource.getLoginRole();
+      if (role) {
+        final sessionId = await authenticationLocalDataSource.getSessionId();
+        final accountDetail =
+            await remoteDataSource.getAccountDetails(sessionId);
+        final response = await remoteDataSource.makeFavorite(
+            10685520,
+            sessionId,
+            FavoriteModel(
+                mediaType: 'movie', mediaId: movieId, favorite: false,));
+        return Right(response);
+      } else {
+        final response = await localDataSource.deleteMovie(movieId);
+        return Right(response);
+      }
     } on Exception {
       return const Left(AppError(AppErrorType.database));
     }
@@ -141,7 +156,6 @@ class MovieRepositoryImpl extends MovieRepository {
             await remoteDataSource.getAccountDetails(sessionId);
         final response = await remoteDataSource.getFavoriteMovie(
             accountDetail.id, sessionId);
-        print(sessionId);
         return Right(response);
       } else {
         final response = await localDataSource.getMovies();
@@ -155,7 +169,22 @@ class MovieRepositoryImpl extends MovieRepository {
   @override
   Future<Either<AppError, bool>> isFavoriteMovie(int movieId) async {
     try {
-      final response = await localDataSource.isFavoriteMovie(movieId);
+      final role = await localDataSource.getLoginRole();
+      var response = false;
+      if (role) {
+        final sessionId = await authenticationLocalDataSource.getSessionId();
+        final accountDetail =
+            await remoteDataSource.getAccountDetails(sessionId);
+        final favoriteMovies = await remoteDataSource.getFavoriteMovie(
+            accountDetail.id, sessionId);
+        for (var element in favoriteMovies) {
+          if (element.id == movieId) {
+            response = true;
+          }
+        }
+      } else {
+        response = await localDataSource.isFavoriteMovie(movieId);
+      }
       return Right(response);
     } on Exception {
       return const Left(AppError(AppErrorType.database));
@@ -166,9 +195,25 @@ class MovieRepositoryImpl extends MovieRepository {
   Future<Either<AppError, void>> saveFavoriteMovie(
       MovieEntity movieEntity) async {
     try {
-      final response = await localDataSource
-          .saveMovie(MovieTable.fromMovieEntity(movieEntity));
-      return Right(response);
+      final role = await localDataSource.getLoginRole();
+      if (role) {
+        final sessionId = await authenticationLocalDataSource.getSessionId();
+        final accountDetail =
+            await remoteDataSource.getAccountDetails(sessionId);
+        final response = await remoteDataSource.makeFavorite(
+            accountDetail.id,
+            sessionId,
+            FavoriteModel(
+              mediaType: 'movie',
+              mediaId: movieEntity.id,
+              favorite: true,
+            ));
+        return Right(response);
+      } else {
+        final response = await localDataSource
+            .saveMovie(MovieTable.fromMovieEntity(movieEntity));
+        return Right(response);
+      }
     } on Exception {
       return const Left(AppError(AppErrorType.database));
     }

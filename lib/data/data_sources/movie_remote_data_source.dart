@@ -1,6 +1,7 @@
 import 'package:movie_cinema_flutter/data/core/api_client.dart';
 import 'package:movie_cinema_flutter/data/models/account_detail.dart';
 import 'package:movie_cinema_flutter/data/models/cast_crew_result_data_model.dart';
+import 'package:movie_cinema_flutter/data/models/favorite_model.dart';
 import 'package:movie_cinema_flutter/data/models/movie_detail.dart';
 import 'package:movie_cinema_flutter/data/models/movie_model.dart';
 import 'package:movie_cinema_flutter/data/models/movie_result_model.dart';
@@ -18,6 +19,7 @@ abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getSearchedMovies(String searchTerm);
   Future<List<MovieModel>> getFavoriteMovie(int accountId, String sessionId);
   Future<AccountDetail> getAccountDetails(String sessionId);
+  Future<void> makeFavorite(int accountId, String sessionId, FavoriteModel favoriteModel);
 }
 
 class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
@@ -99,12 +101,11 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getFavoriteMovie(int accountId, String sessionId) async {
+  Future<List<MovieModel>> getFavoriteMovie(
+      int accountId, String sessionId) async {
     final response = await _client.get(
       '/account/$accountId/favorite/movies',
-      params: {
-        'session_id': sessionId
-      },
+      params: {'session_id': sessionId},
     );
     final movies = MovieResultModel.fromJson(response).movies;
     return movies;
@@ -114,11 +115,24 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   Future<AccountDetail> getAccountDetails(String sessionId) async {
     final response = await _client.get(
       '/account',
-      params: {
-        'session_id': sessionId
-      },
+      params: {'session_id': sessionId},
     );
     final accountDetail = AccountDetail.fromJson(response);
     return accountDetail;
+  }
+
+  @override
+  Future<void> makeFavorite(int accountId, String sessionId, FavoriteModel favoriteModel) async {
+    await _client.postWithParams(
+      '/account/$accountId/favorite',
+      body: {
+        'media_type': favoriteModel.mediaType,
+        'media_id': favoriteModel.mediaId,
+        'favorite': favoriteModel.favorite,
+      },
+      params: {
+        'session_id': sessionId,
+      }
+    );
   }
 }

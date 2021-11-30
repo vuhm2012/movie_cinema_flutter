@@ -184,6 +184,7 @@ Future init() async {
       getFavoriteMovie: getItInstance(),
       deleteFavoriteMovie: getItInstance(),
       isFavoriteMovie: getItInstance(),
+      loadingBloc: getItInstance(),
     ),
   );
 

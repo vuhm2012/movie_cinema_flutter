@@ -43,6 +43,24 @@ class ApiClient {
     }
   }
 
+  dynamic postWithParams(String path, {Map<dynamic, dynamic>? params, Map<dynamic, dynamic>? body}) async {
+    final response = await _client.post(
+      getPath(path, params),
+      body: jsonEncode(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else if (response.statusCode == 401) {
+      throw UnauthorizedException();
+    } else {
+      throw Exception(response.reasonPhrase);
+    }
+  }
+
   dynamic deleteWithBody(String path, {Map<dynamic, dynamic>? params}) async {
     Request request = Request('DELETE', getPath(path, null));
     request.headers['Content-Type'] = 'application/json';
