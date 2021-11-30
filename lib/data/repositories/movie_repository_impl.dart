@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:movie_cinema_flutter/data/data_sources/authentication_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_remote_data_source.dart';
 import 'package:movie_cinema_flutter/data/models/cast_crew_result_data_model.dart';
@@ -15,8 +16,13 @@ import 'package:movie_cinema_flutter/domain/repositories/movie_repository.dart';
 class MovieRepositoryImpl extends MovieRepository {
   final MovieRemoteDataSource remoteDataSource;
   final MovieLocalDataSource localDataSource;
+  final AuthenticationLocalDataSource authenticationLocalDataSource;
 
-  MovieRepositoryImpl(this.remoteDataSource, this.localDataSource);
+  MovieRepositoryImpl(
+    this.remoteDataSource,
+    this.localDataSource,
+    this.authenticationLocalDataSource,
+  );
 
   @override
   Future<Either<AppError, List<MovieModel>>> getTrending(int page) async {
@@ -128,8 +134,19 @@ class MovieRepositoryImpl extends MovieRepository {
   @override
   Future<Either<AppError, List<MovieEntity>>> getFavoriteMovies() async {
     try {
-      final response = await localDataSource.getMovies();
-      return Right(response);
+      final role = await localDataSource.getLoginRole();
+      if (role) {
+        final sessionId = await authenticationLocalDataSource.getSessionId();
+        final accountDetail =
+            await remoteDataSource.getAccountDetails(sessionId);
+        final response = await remoteDataSource.getFavoriteMovie(
+            accountDetail.id, sessionId);
+        print(sessionId);
+        return Right(response);
+      } else {
+        final response = await localDataSource.getMovies();
+        return Right(response);
+      }
     } on Exception {
       return const Left(AppError(AppErrorType.database));
     }
@@ -149,7 +166,28 @@ class MovieRepositoryImpl extends MovieRepository {
   Future<Either<AppError, void>> saveFavoriteMovie(
       MovieEntity movieEntity) async {
     try {
-      final response = await localDataSource.saveMovie(MovieTable.fromMovieEntity(movieEntity));
+      final response = await localDataSource
+          .saveMovie(MovieTable.fromMovieEntity(movieEntity));
+      return Right(response);
+    } on Exception {
+      return const Left(AppError(AppErrorType.database));
+    }
+  }
+
+  @override
+  Future<Either<AppError, bool>> getLoginRole() async {
+    try {
+      final response = await localDataSource.getLoginRole();
+      return Right(response);
+    } on Exception {
+      return const Left(AppError(AppErrorType.database));
+    }
+  }
+
+  @override
+  Future<Either<AppError, void>> setLoginRole(bool role) async {
+    try {
+      final response = await localDataSource.setLoginRole(role);
       return Right(response);
     } on Exception {
       return const Left(AppError(AppErrorType.database));

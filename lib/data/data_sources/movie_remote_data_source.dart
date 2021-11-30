@@ -1,4 +1,5 @@
 import 'package:movie_cinema_flutter/data/core/api_client.dart';
+import 'package:movie_cinema_flutter/data/models/account_detail.dart';
 import 'package:movie_cinema_flutter/data/models/cast_crew_result_data_model.dart';
 import 'package:movie_cinema_flutter/data/models/movie_detail.dart';
 import 'package:movie_cinema_flutter/data/models/movie_model.dart';
@@ -15,6 +16,8 @@ abstract class MovieRemoteDataSource {
   Future<List<CastModel>> getCastCrew(int id);
   Future<List<VideoModel>> getVideos(int id);
   Future<List<MovieModel>> getSearchedMovies(String searchTerm);
+  Future<List<MovieModel>> getFavoriteMovie(int accountId, String sessionId);
+  Future<AccountDetail> getAccountDetails(String sessionId);
 }
 
 class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
@@ -93,5 +96,29 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
     );
     final movies = MovieResultModel.fromJson(response).movies;
     return movies;
+  }
+
+  @override
+  Future<List<MovieModel>> getFavoriteMovie(int accountId, String sessionId) async {
+    final response = await _client.get(
+      '/account/$accountId/favorite/movies',
+      params: {
+        'session_id': sessionId
+      },
+    );
+    final movies = MovieResultModel.fromJson(response).movies;
+    return movies;
+  }
+
+  @override
+  Future<AccountDetail> getAccountDetails(String sessionId) async {
+    final response = await _client.get(
+      '/account',
+      params: {
+        'session_id': sessionId
+      },
+    );
+    final accountDetail = AccountDetail.fromJson(response);
+    return accountDetail;
   }
 }

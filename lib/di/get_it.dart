@@ -28,6 +28,7 @@ import 'package:movie_cinema_flutter/domain/usecases/login_user.dart';
 import 'package:movie_cinema_flutter/domain/usecases/logout_user.dart';
 import 'package:movie_cinema_flutter/domain/usecases/save_favorite_movie.dart';
 import 'package:movie_cinema_flutter/domain/usecases/search_moives.dart';
+import 'package:movie_cinema_flutter/domain/usecases/set_role_use_case.dart';
 import 'package:movie_cinema_flutter/domain/usecases/update_language.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/favorite_movie/favorite_movie_bloc.dart';
@@ -65,7 +66,7 @@ Future init() async {
       () => AuthenticationLocalDataSourceImpl());
 
   getItInstance.registerLazySingleton<MovieRepository>(
-      () => MovieRepositoryImpl(getItInstance(), getItInstance()));
+      () => MovieRepositoryImpl(getItInstance(), getItInstance(), getItInstance()));
 
   getItInstance.registerLazySingleton<AppRepository>(
       () => AppRepositoryImpl(getItInstance()));
@@ -117,8 +118,11 @@ Future init() async {
   getItInstance
       .registerLazySingleton<LogoutUser>(() => LogoutUser(getItInstance()));
 
-  getItInstance
-      .registerLazySingleton<GuestLoginUseCase>(() => GuestLoginUseCase(getItInstance()));
+  getItInstance.registerLazySingleton<GuestLoginUseCase>(
+      () => GuestLoginUseCase(getItInstance()));
+
+  getItInstance.registerLazySingleton<SetRoleUseCase>(
+      () => SetRoleUseCase(getItInstance()));
 
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
@@ -169,6 +173,7 @@ Future init() async {
       loginUser: getItInstance(),
       logoutUser: getItInstance(),
       loadingBloc: getItInstance(),
+      setRoleUseCase: getItInstance(),
       guestLoginUseCase: getItInstance(),
     ),
   );

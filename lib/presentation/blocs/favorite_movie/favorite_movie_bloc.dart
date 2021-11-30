@@ -40,6 +40,7 @@ class FavoriteMovieBloc extends Bloc<FavoriteMovieEvent, FavoriteMovieState> {
         (movieId) => IsFavoriteMovieState(movieId),
       );
     } else if (event is LoadFavoriteMovieEvent) {
+      
       yield* _fetchLoadFavoriteMovies();
     } else if (event is DeleteFavoriteMovieEvent) {
       await deleteFavoriteMovie(MovieParams(event.movieId));

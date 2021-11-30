@@ -6,6 +6,8 @@ abstract class MovieLocalDataSource {
   Future<List<MovieTable>> getMovies();
   Future<void> deleteMovie(int movieId);
   Future<bool> isFavoriteMovie(int movieId);
+  Future<void> setLoginRole(bool role);
+  Future<bool> getLoginRole();
 }
 
 class MovieLocalDataSourceImpl extends MovieLocalDataSource {
@@ -36,5 +38,17 @@ class MovieLocalDataSourceImpl extends MovieLocalDataSource {
   Future<void> saveMovie(MovieTable movieTable) async {
     final movieBox = await Hive.openBox('movieBox');
     await movieBox.put(movieTable.id, movieTable);
+  }
+
+  @override
+  Future<void> setLoginRole(bool role) async {
+    final loginRole = await Hive.openBox('loginRole');
+    await loginRole.put('role', role);
+  }
+
+  @override
+  Future<bool> getLoginRole() async {
+    final loginRole = await Hive.openBox('loginRole');
+    return await loginRole.get('role');
   }
 }

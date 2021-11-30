@@ -18,4 +18,6 @@ abstract class MovieRepository {
   Future<Either<AppError, void>> saveFavoriteMovie(MovieEntity movieEntity);
   Future<Either<AppError, void>> deleteFavoriteMovie(int movieId);
   Future<Either<AppError, bool>> isFavoriteMovie(int movieId);
+  Future<Either<AppError, void>> setLoginRole(bool role);
+  Future<Either<AppError, bool>> getLoginRole();
 }
