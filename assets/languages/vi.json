@@ -26,5 +26,7 @@
     "sessionDenied": "Phiên đăng nhập đã hết hạn",
     "enterTMDbUsername": "Nhập tên đăng nhập TMDb...",
     "enterPassword": "Nhập mật khẩu TMDb...",
-    "guestSignIn": "Đăng nhập kiểu khách"
+    "guestSignIn": "Đăng nhập kiểu khách",
+    "welcome": "Chào mừng bạn!",
+    "welcomeMessage": "Chúc bạn có những trải nghiệp tuyệt vời trong quá trình sử dụng ứng dụng!"
 }

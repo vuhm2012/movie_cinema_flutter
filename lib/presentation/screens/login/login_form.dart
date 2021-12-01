@@ -6,6 +6,7 @@ import 'package:movie_cinema_flutter/common/constants/translation_constants.dart
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/login/login_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/screens/notification/notification_api.dart';
 import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/button.dart';
 
@@ -94,6 +95,10 @@ class _LoginFormState extends State<LoginForm> {
               },
               listenWhen: (previous, current) => current is LoginSuccess,
               listener: (context, state) {
+                NotificationApi.showNotification(
+                  title: TranslationConstants.welcome.t(context),
+                  body: TranslationConstants.welcomeMessage.t(context),
+                );
                 Navigator.of(context).pushNamedAndRemoveUntil(
                   RouteList.home,
                   (route) => false,
