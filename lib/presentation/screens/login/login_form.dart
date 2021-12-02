@@ -42,6 +42,10 @@ class _LoginFormState extends State<LoginForm> {
             (_passwordController?.text.isNotEmpty ?? false);
       });
     });
+
+    BlocProvider.of<LoginBloc>(context).add(
+      CheckIsLoggedInEvent(),
+    );
   }
 
   @override
@@ -93,16 +97,23 @@ class _LoginFormState extends State<LoginForm> {
                 }
                 return const SizedBox.shrink();
               },
-              listenWhen: (previous, current) => current is LoginSuccess,
+              // listenWhen: (previous, current) => current is LoginSuccess,
               listener: (context, state) {
-                NotificationApi.showNotification(
-                  title: TranslationConstants.welcome.t(context),
-                  body: TranslationConstants.welcomeMessage.t(context),
-                );
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  RouteList.home,
-                  (route) => false,
-                );
+                if (state is LoginSuccess) {
+                  NotificationApi.showNotification(
+                    title: TranslationConstants.welcome.t(context),
+                    body: TranslationConstants.welcomeMessage.t(context),
+                  );
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteList.home,
+                    (route) => false,
+                  );
+                } else if (state is LoggedIn) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteList.home,
+                    (route) => false,
+                  );
+                }
               },
             ),
             SizedBox(

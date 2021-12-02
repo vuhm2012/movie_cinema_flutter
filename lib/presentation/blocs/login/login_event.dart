@@ -24,3 +24,7 @@ class GuestLoginEvent extends LoginEvent {
 class LogoutEvent extends LoginEvent {
   
 }
+
+class CheckIsLoggedInEvent extends LoginEvent {
+  
+}

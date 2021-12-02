@@ -5,6 +5,7 @@ import 'package:movie_cinema_flutter/common/constants/translation_constants.dart
 import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
 import 'package:movie_cinema_flutter/domain/entities/login_request_params.dart';
 import 'package:movie_cinema_flutter/domain/entities/no_params.dart';
+import 'package:movie_cinema_flutter/domain/usecases/get_session_id_use_case.dart';
 import 'package:movie_cinema_flutter/domain/usecases/guest_login_use_case.dart';
 import 'package:movie_cinema_flutter/domain/usecases/login_user.dart';
 import 'package:movie_cinema_flutter/domain/usecases/logout_user.dart';
@@ -20,6 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final SetRoleUseCase setRoleUseCase;
   final GuestLoginUseCase guestLoginUseCase;
   final LoadingBloc loadingBloc;
+  final GetSessionIdUseCase getSessionIdUseCase;
 
   LoginBloc({
     required this.loginUser,
@@ -27,6 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     required this.setRoleUseCase,
     required this.guestLoginUseCase,
     required this.loadingBloc,
+    required this.getSessionIdUseCase,
   }) : super(LoginInitial());
 
   @override
@@ -61,6 +64,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         (r) {
           setRoleUseCase(false);
           return LoginSuccess();
+        },
+      );
+    } else if (event is CheckIsLoggedInEvent) {
+      final Either<AppError, String> eitherResponse =
+          await getSessionIdUseCase(NoParams());
+      yield eitherResponse.fold(
+        (l) => NotLoggedIn(),
+        (r) {
+          if (r != '') {
+            return LoggedIn();
+          } else {
+            return NotLoggedIn();
+          }
         },
       );
     } else if (event is LogoutEvent) {

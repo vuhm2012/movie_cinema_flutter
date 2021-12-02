@@ -20,6 +20,7 @@ import 'package:movie_cinema_flutter/domain/usecases/get_movie_detail.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_playing_now.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_popular.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_preferred_language.dart';
+import 'package:movie_cinema_flutter/domain/usecases/get_session_id_use_case.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_trending.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_videos.dart';
 import 'package:movie_cinema_flutter/domain/usecases/guest_login_use_case.dart';
@@ -124,6 +125,9 @@ Future init() async {
   getItInstance.registerLazySingleton<SetRoleUseCase>(
       () => SetRoleUseCase(getItInstance()));
 
+  getItInstance.registerLazySingleton<GetSessionIdUseCase>(
+      () => GetSessionIdUseCase(getItInstance()));
+
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
       loadingBloc: getItInstance(),
@@ -175,6 +179,7 @@ Future init() async {
       loadingBloc: getItInstance(),
       setRoleUseCase: getItInstance(),
       guestLoginUseCase: getItInstance(),
+      getSessionIdUseCase: getItInstance(),
     ),
   );
 
