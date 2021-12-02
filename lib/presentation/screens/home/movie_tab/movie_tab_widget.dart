@@ -19,12 +19,13 @@ class MovieTabWidget extends StatefulWidget {
 }
 
 class _MovieTabWidgetState extends State<MovieTabWidget> {
-  MovieTabBloc get movieTabBloc => BlocProvider.of<MovieTabBloc>(context);
+  late MovieTabBloc movieTabBloc;
   int currentTabIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    movieTabBloc = BlocProvider.of<MovieTabBloc>(context);
     movieTabBloc.add(MovieTabChangedEvent(currentTabIndex: currentTabIndex));
   }
 
