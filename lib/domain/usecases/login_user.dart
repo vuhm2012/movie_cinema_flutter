@@ -11,7 +11,7 @@ class LoginUser extends UseCase<bool, LoginRequestParams> {
 
   @override
   Future<Either<AppError, bool>> call(
-      LoginRequestParams loginParams) async {
-    return await _authenticationRepository.loginUser(loginParams.toJson());
+      LoginRequestParams params) async {
+    return await _authenticationRepository.loginUser(params.toJson());
   }
 }

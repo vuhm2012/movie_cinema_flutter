@@ -29,21 +29,20 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either<AppError, bool>> loginUser(Map<String, dynamic> body) async {
+  Future<Either<AppError, bool>> loginUser(Map<String, dynamic> params) async {
     final requestTokenEitherResponse = await _getRequestToken();
     final token1 = requestTokenEitherResponse
             .getOrElse(() => RequestTokenModel())
             .requestToken ??
         '';
     try {
-      body.putIfAbsent('request_token', () => token1);
+      params.putIfAbsent('request_token', () => token1);
       final validationWithLoginToken =
-          await _authenticationRemoteDataSource.validateWithLogin(body);
+          await _authenticationRemoteDataSource.validateWithLogin(params);
       final sessionId = await _authenticationRemoteDataSource
           .createSession(validationWithLoginToken.toJson());
       if (sessionId != null) {
         await _authenticationLocalDataSource.saveSessionId(sessionId);
-        print(sessionId);
         return const Right(true);
       }
       return const Left(AppError(AppErrorType.sessionDenied));

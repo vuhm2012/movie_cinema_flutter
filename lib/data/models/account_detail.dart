@@ -58,11 +58,11 @@ class Avatar {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.gravatar != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (gravatar != null) {
       data['gravatar'] = gravatar?.toJson();
     }
-    if (this.tmdb != null) {
+    if (tmdb != null) {
       data['tmdb'] = tmdb?.toJson();
     }
     return data;
@@ -81,8 +81,8 @@ class Gravatar {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['hash'] = this.hash;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['hash'] = hash;
     return data;
   }
 }
@@ -97,8 +97,8 @@ class Tmdb {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['avatar_path'] = this.avatarPath;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['avatar_path'] = avatarPath;
     return data;
   }
 }

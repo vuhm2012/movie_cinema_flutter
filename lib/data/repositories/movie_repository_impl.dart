@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:movie_cinema_flutter/data/data_sources/authentication_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_remote_data_source.dart';
@@ -132,7 +131,7 @@ class MovieRepositoryImpl extends MovieRepository {
         final accountDetail =
             await remoteDataSource.getAccountDetails(sessionId);
         final response = await remoteDataSource.makeFavorite(
-            10685520,
+            accountDetail.id,
             sessionId,
             FavoriteModel(
                 mediaType: 'movie', mediaId: movieId, favorite: false,));

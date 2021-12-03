@@ -11,7 +11,7 @@ class SearchMovies extends UseCase<List<MovieEntity>, MovieSearchParams>{
   SearchMovies(this.repository);
 
   @override
-  Future<Either<AppError, List<MovieEntity>>> call(MovieSearchParams movieSearchParams) async {
-    return await repository.getSearchedMovies(movieSearchParams.searchTerm);
+  Future<Either<AppError, List<MovieEntity>>> call(MovieSearchParams params) async {
+    return await repository.getSearchedMovies(params.searchTerm);
   }
 }

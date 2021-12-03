@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:movie_cinema_flutter/domain/entities/app_error.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_entity.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_params.dart';
-import 'package:movie_cinema_flutter/domain/entities/no_params.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_trending.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/loading/loading_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';

@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
-import 'package:movie_cinema_flutter/data/models/movie_model.dart';
 import 'package:movie_cinema_flutter/domain/entities/movie_entity.dart';
 import 'package:movie_cinema_flutter/presentation/screens/home/movie_tab/movie_tab_card_widget.dart';
-import 'package:movie_cinema_flutter/presentation/screens/loading/loading_circle.dart';
 
 class MovieListViewBuilder extends StatefulWidget {
   final List<MovieEntity> movies;
@@ -70,8 +68,6 @@ class _MovieListViewBuilderState extends State<MovieListViewBuilder> {
           );
         },
         itemBuilder: (context, index) {
-          print(widget.movies.length);
-
           final MovieEntity movie = widget.movies[index];
           return MovieTabCardWidget(
               movieId: movie.id,
