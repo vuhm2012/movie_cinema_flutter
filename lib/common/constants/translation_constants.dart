@@ -31,4 +31,7 @@ class TranslationConstants {
   static const String guestSignIn = 'guestSignIn';
   static const String welcome = 'welcome';
   static const String welcomeMessage = 'welcomeMessage';
+  static const String theme = 'theme';
+  static const String darkMode = 'darkMode';
+  static const String lightMode = 'lightMode';
 }

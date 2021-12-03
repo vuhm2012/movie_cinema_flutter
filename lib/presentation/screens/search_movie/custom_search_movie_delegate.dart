@@ -4,6 +4,7 @@ import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
 import 'package:movie_cinema_flutter/common/constants/translation_constants.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
+import 'package:movie_cinema_flutter/presentation/movie_app.dart';
 import 'package:movie_cinema_flutter/presentation/screens/search_movie/search_movie_card.dart';
 import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
@@ -15,12 +16,12 @@ class CustomSearchDelegate extends SearchDelegate {
 
   CustomSearchDelegate(this.searchMovieBloc);
 
-  final OutlineInputBorder _enabledBorder = const OutlineInputBorder(
-    borderSide: BorderSide(color: AppColor.vulcan),
+  final OutlineInputBorder _enabledBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: isDarkMode ? AppColor.vulcan : Colors.white),
   );
 
-  final OutlineInputBorder _focusedBorder = const OutlineInputBorder(
-    borderSide: BorderSide(color: AppColor.vulcan),
+  final OutlineInputBorder _focusedBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: isDarkMode ? AppColor.vulcan : Colors.white),
   );
 
   @override
@@ -54,9 +55,9 @@ class CustomSearchDelegate extends SearchDelegate {
       onPressed: () {
         close(context, null);
       },
-      icon: const Icon(
+      icon: Icon(
         Icons.arrow_back_ios,
-        color: Colors.white,
+        color: isDarkMode ? Colors.white : AppColor.vulcan,
       ),
     );
   }

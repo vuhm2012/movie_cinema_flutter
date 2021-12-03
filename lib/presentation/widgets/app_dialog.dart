@@ -3,6 +3,7 @@ import 'package:movie_cinema_flutter/common/constants/size_constants.dart';
 import 'package:movie_cinema_flutter/common/constants/translation_constants.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
+import 'package:movie_cinema_flutter/presentation/movie_app.dart';
 import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/button.dart';
 
@@ -21,7 +22,7 @@ class AppDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: AppColor.vulcan,
+      backgroundColor: isDarkMode ? AppColor.vulcan : Colors.white,
       elevation: Sizes.dimen_32,
       insetPadding: EdgeInsets.all(Sizes.dimen_32.w),
       shape: RoundedRectangleBorder(
@@ -35,10 +36,10 @@ class AppDialog extends StatelessWidget {
           left: Sizes.dimen_16.w,
           right: Sizes.dimen_16.w,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: AppColor.vulcan,
+              color: isDarkMode ? AppColor.vulcan : Colors.white,
               blurRadius: Sizes.dimen_16,
             ),
           ],

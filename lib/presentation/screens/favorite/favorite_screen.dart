@@ -4,6 +4,8 @@ import 'package:movie_cinema_flutter/common/constants/translation_constants.dart
 import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
 import 'package:movie_cinema_flutter/di/get_it.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/favorite_movie/favorite_movie_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/movie_app.dart';
+import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 
 import 'favorite_movie_grid_view.dart';
 
@@ -34,8 +36,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: isDarkMode ? Colors.white : AppColor.vulcan,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: Text(
           TranslationConstants.favoriteMovies.t(context),
+          style: TextStyle(
+            color: isDarkMode ? Colors.white : AppColor.vulcan,
+          ),
         ),
       ),
       body: BlocProvider.value(

@@ -9,12 +9,15 @@ import 'package:movie_cinema_flutter/di/get_it.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/language/language_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/loading/loading_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/login/login_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/theme/theme_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/routes.dart';
 import 'package:movie_cinema_flutter/presentation/screens/loading/loading_screen.dart';
 import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:movie_cinema_flutter/presentation/themes/theme_text.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/fade_page_route_builder.dart';
 import 'package:movie_cinema_flutter/presentation/wiredash_app.dart';
+
+bool isDarkMode = true;
 
 class MovieApp extends StatefulWidget {
   const MovieApp({Key? key}) : super(key: key);
@@ -28,6 +31,7 @@ class _MovieAppState extends State<MovieApp> {
   late LanguageBloc _languageBloc;
   late LoginBloc _loginBloc;
   late LoadingBloc _loadingBloc;
+  late ThemeBloc _themeBloc;
 
   @override
   void initState() {
@@ -36,6 +40,8 @@ class _MovieAppState extends State<MovieApp> {
     _languageBloc.add(LoadPreferredLanguageEvent());
     _loginBloc = getItInstance<LoginBloc>();
     _loadingBloc = getItInstance<LoadingBloc>();
+    _themeBloc = getItInstance<ThemeBloc>();
+    _themeBloc.add(LoadPreferredThemeEvent());
   }
 
   @override
@@ -43,6 +49,7 @@ class _MovieAppState extends State<MovieApp> {
     _languageBloc.close();
     _loginBloc.close();
     _loadingBloc.close();
+    _themeBloc.close();
     super.dispose();
   }
 
@@ -60,54 +67,82 @@ class _MovieAppState extends State<MovieApp> {
         BlocProvider<LoadingBloc>.value(
           value: _loadingBloc,
         ),
+        BlocProvider<ThemeBloc>.value(
+          value: _themeBloc,
+        ),
       ],
-      child: BlocBuilder<LanguageBloc, LanguageState>(
-        builder: (context, state) {
-          if (state is LanguageLoaded) {
-            return WiredashApp(
-              navigatorKey: _navigatorKey,
-              child: MaterialApp(
-                navigatorKey: _navigatorKey,
-                debugShowCheckedModeBanner: false,
-                title: 'Movie App',
-                theme: ThemeData(
-                    unselectedWidgetColor: Colors.white,
-                    colorScheme: const ColorScheme.light(
-                      primary: Colors.white
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, themeState) {
+          return BlocBuilder<LanguageBloc, LanguageState>(
+            builder: (context, languageState) {
+              if (themeState is ThemeLoaded) {
+                isDarkMode = themeState.isDarkMode;
+                if (languageState is LanguageLoaded) {
+                  return WiredashApp(
+                    navigatorKey: _navigatorKey,
+                    child: MaterialApp(
+                      navigatorKey: _navigatorKey,
+                      debugShowCheckedModeBanner: false,
+                      title: 'Movie App',
+                      theme: ThemeData(
+                        unselectedWidgetColor: themeState.isDarkMode
+                            ? Colors.white
+                            : AppColor.vulcan,
+                        colorScheme:
+                            const ColorScheme.light(primary: Colors.white70),
+                        primaryColor: themeState.isDarkMode
+                            ? AppColor.vulcan
+                            : Colors.white,
+                        scaffoldBackgroundColor: themeState.isDarkMode
+                            ? AppColor.vulcan
+                            : Colors.white70,
+                        textTheme: themeState.isDarkMode
+                            ? ThemeText.getTextTheme()
+                            : ThemeText.getLightTextTheme(),
+                        appBarTheme: AppBarTheme(
+                          elevation: 0,
+                          color: themeState.isDarkMode ? AppColor.vulcan : Colors.white70,
+                        ),
+                        inputDecorationTheme: InputDecorationTheme(
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          hintStyle: Theme.of(context).textTheme.greySubtitle1,
+                        ),
+                      ),
+                      supportedLocales: Languages.languages
+                          .map((e) => Locale(e.code))
+                          .toList(),
+                      locale: languageState.locale,
+                      localizationsDelegates: const [
+                        AppLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate
+                      ],
+                      builder: (context, child) {
+                        return LoadingScreen(
+                          screen: child ?? Container(),
+                        );
+                      },
+                      initialRoute: RouteList.initail,
+                      onGenerateRoute: (RouteSettings settings) {
+                        final routes = Routes.getRoutes(settings);
+                        final WidgetBuilder builder = routes[settings.name]!;
+                        return FadePageRouteBuilder(
+                          builder: builder,
+                          settings: settings,
+                        );
+                      },
                     ),
-                    primaryColor: AppColor.vulcan,
-                    scaffoldBackgroundColor: AppColor.vulcan,
-                    textTheme: ThemeText.getTextTheme(),
-                    appBarTheme: const AppBarTheme(
-                      elevation: 0,
-                      color: AppColor.vulcan,
-                    )),
-                supportedLocales:
-                    Languages.languages.map((e) => Locale(e.code)).toList(),
-                locale: state.locale,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate
-                ],
-                builder: (context, child) {
-                  return LoadingScreen(
-                    screen: child ?? Container(),
                   );
-                },
-                initialRoute: RouteList.initail,
-                onGenerateRoute: (RouteSettings settings) {
-                  final routes = Routes.getRoutes(settings);
-                  final WidgetBuilder builder = routes[settings.name]!;
-                  return FadePageRouteBuilder(
-                    builder: builder,
-                    settings: settings,
-                  );
-                },
-              ),
-            );
-          }
-          return const SizedBox.shrink();
+                }
+              }
+              return const SizedBox.shrink();
+            },
+          );
         },
       ),
     );

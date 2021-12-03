@@ -28,5 +28,8 @@
     "enterPassword": "Nhập mật khẩu TMDb...",
     "guestSignIn": "Đăng nhập kiểu khách",
     "welcome": "Chào mừng bạn!",
-    "welcomeMessage": "Chúc bạn có những trải nghiệp tuyệt vời trong quá trình sử dụng ứng dụng!"
+    "welcomeMessage": "Chúc bạn có những trải nghiệp tuyệt vời trong quá trình sử dụng ứng dụng!",
+    "theme": "Chủ đề",
+    "darkMode": "Chế độ tối",
+    "lightMode": "Chế độ sáng"
 }

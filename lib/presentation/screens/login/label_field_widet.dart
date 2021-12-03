@@ -22,13 +22,6 @@ class LabelFieldWidget extends StatefulWidget {
 }
 
 class _LabelFieldWidgetState extends State<LabelFieldWidget> {
-  final OutlineInputBorder _enabledBorder = const OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.grey),
-  );
-
-  final OutlineInputBorder _focusedBorder = const OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.white),
-  );
 
   final FocusNode _focusNode = FocusNode();
 
@@ -48,12 +41,9 @@ class _LabelFieldWidgetState extends State<LabelFieldWidget> {
             decoration: InputDecoration(
               hintText: widget.hintText,
               labelText: widget.label,
-              labelStyle: TextStyle(
-                color: _focusNode.hasFocus ? Colors.white : Colors.grey,
+              labelStyle: const TextStyle(
+                color: Colors.grey,
               ),
-              hintStyle: Theme.of(context).textTheme.greySubtitle1,
-              focusedBorder: _focusedBorder,
-              enabledBorder: _enabledBorder,
             ),
           ),
         ],

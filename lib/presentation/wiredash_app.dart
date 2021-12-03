@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_cinema_flutter/presentation/movie_app.dart';
 import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:wiredash/wiredash.dart';
 
@@ -21,7 +22,7 @@ class WiredashApp extends StatelessWidget {
       secret: 'Jits-XQTpdF3OpQOOhUQi22fnQA--T33',
       options: WiredashOptionsData(),
       theme: WiredashThemeData(
-        brightness: Brightness.dark,
+        brightness: isDarkMode ? Brightness.dark : Brightness.light,
         primaryColor: AppColor.royalBlue,
         secondaryColor: AppColor.violet,
         secondaryBackgroundColor: AppColor.vulcan,

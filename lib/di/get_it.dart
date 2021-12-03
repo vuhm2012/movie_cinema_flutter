@@ -6,6 +6,7 @@ import 'package:movie_cinema_flutter/data/data_sources/authentication_remote_dat
 import 'package:movie_cinema_flutter/data/data_sources/language_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/data_sources/movie_remote_data_source.dart';
+import 'package:movie_cinema_flutter/data/data_sources/theme_local_data_source.dart';
 import 'package:movie_cinema_flutter/data/repositories/app_repository_impl.dart';
 import 'package:movie_cinema_flutter/data/repositories/authentication_repository_impl.dart';
 import 'package:movie_cinema_flutter/data/repositories/movie_repository_impl.dart';
@@ -20,6 +21,7 @@ import 'package:movie_cinema_flutter/domain/usecases/get_movie_detail.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_playing_now.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_popular.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_preferred_language.dart';
+import 'package:movie_cinema_flutter/domain/usecases/get_preferred_theme_use_case.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_session_id_use_case.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_trending.dart';
 import 'package:movie_cinema_flutter/domain/usecases/get_videos.dart';
@@ -30,6 +32,7 @@ import 'package:movie_cinema_flutter/domain/usecases/logout_user.dart';
 import 'package:movie_cinema_flutter/domain/usecases/save_favorite_movie.dart';
 import 'package:movie_cinema_flutter/domain/usecases/search_moives.dart';
 import 'package:movie_cinema_flutter/domain/usecases/set_role_use_case.dart';
+import 'package:movie_cinema_flutter/domain/usecases/toggle_theme_use_case.dart';
 import 'package:movie_cinema_flutter/domain/usecases/update_language.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/favorite_movie/favorite_movie_bloc.dart';
@@ -41,6 +44,7 @@ import 'package:movie_cinema_flutter/presentation/blocs/movie_carousel/movie_car
 import 'package:movie_cinema_flutter/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/movie_tab/movie_tab_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/search_movie/search_movie_bloc.dart';
+import 'package:movie_cinema_flutter/presentation/blocs/theme/theme_bloc.dart';
 import 'package:movie_cinema_flutter/presentation/blocs/videos/videos_bloc.dart';
 
 final getItInstance = GetIt.I;
@@ -66,11 +70,14 @@ Future init() async {
   getItInstance.registerLazySingleton<AuthenticationLocalDataSource>(
       () => AuthenticationLocalDataSourceImpl());
 
+  getItInstance.registerLazySingleton<ThemeLocalDataSource>(
+      () => ThemeLocalDataSourceImpl());
+
   getItInstance.registerLazySingleton<MovieRepository>(
       () => MovieRepositoryImpl(getItInstance(), getItInstance(), getItInstance()));
 
   getItInstance.registerLazySingleton<AppRepository>(
-      () => AppRepositoryImpl(getItInstance()));
+      () => AppRepositoryImpl(getItInstance(), getItInstance()));
 
   getItInstance.registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImpl(getItInstance(), getItInstance()));
@@ -127,6 +134,12 @@ Future init() async {
 
   getItInstance.registerLazySingleton<GetSessionIdUseCase>(
       () => GetSessionIdUseCase(getItInstance()));
+      
+  getItInstance.registerLazySingleton<GetPreferredThemeUseCase>(
+      () => GetPreferredThemeUseCase(getItInstance()));
+      
+  getItInstance.registerLazySingleton<ToggleThemeUseCase>(
+      () => ToggleThemeUseCase(getItInstance()));
 
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
@@ -199,4 +212,10 @@ Future init() async {
   ));
 
   getItInstance.registerSingleton<LoadingBloc>(LoadingBloc());
+
+  getItInstance.registerSingleton<ThemeBloc>(ThemeBloc(
+    getPreferredThemeUseCase: getItInstance(),
+    toggleThemeUseCase: getItInstance(),
+  ));
+  
 }

@@ -5,7 +5,9 @@ import 'package:movie_cinema_flutter/common/constants/translation_constants.dart
 import 'package:movie_cinema_flutter/common/extensions/string_extensions.dart';
 import 'package:movie_cinema_flutter/common/extensions/size_extensions.dart';
 import 'package:movie_cinema_flutter/domain/entities/video_entity.dart';
+import 'package:movie_cinema_flutter/presentation/movie_app.dart';
 import 'package:movie_cinema_flutter/presentation/screens/watch_video/watch_video_arguments.dart';
+import 'package:movie_cinema_flutter/presentation/themes/app_color.dart';
 import 'package:movie_cinema_flutter/presentation/widgets/image_loading_placeholder.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -48,8 +50,18 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: isDarkMode ? Colors.white : AppColor.vulcan,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: Text(
           TranslationConstants.watchTrailers.t(context),
+          style: TextStyle(
+            color: isDarkMode ? Colors.white : AppColor.vulcan,
+          ),
         ),
       ),
       body: YoutubePlayerBuilder(

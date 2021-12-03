@@ -55,7 +55,7 @@ class FavoriteMovieCardWidget extends StatelessWidget {
                     child: Icon(
                       Icons.delete,
                       size: Sizes.dimen_12.h,
-                      color: Colors.white,
+                      color: Colors.red,
                     ),
                   ),
                 ),

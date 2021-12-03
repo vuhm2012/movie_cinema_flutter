@@ -28,5 +28,8 @@
     "enterPassword": "Enter password here...",
     "guestSignIn": "Guest Sign In",
     "welcome": "Welcome!",
-    "welcomeMessage": "Have a greate time when using the application!"
+    "welcomeMessage": "Have a greate time when using the application!",
+    "theme": "Theme",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode"
 }
